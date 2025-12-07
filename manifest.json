@@ -1,0 +1,13 @@
+{
+  "name": "コグニサイズ脳トレ",
+  "short_name": "コグニサイズ",
+  "start_url": "/認知症予防アプリ.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "description": "認知症予防向けの脳トレ問題を自動で出題するアプリです。",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>コグニサイズ脳トレ</title>
+<style>
+  /* モバイル対応の調整 */
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;/* 縦に配置 */
+    justify-content: space-between;
+    align-items: center;/* 左右中央 */
+    font-family: sans-serif;
+    background: #ffffff;
+    padding: 16px; /* 端末の余白確保 */
+    box-sizing: border-box;
+  }
+
+  #app {
+    flex: 1; /* 余白を均等にして中央寄せ */
+    width: 100%;
+    max-width: 780px; /* タブレット幅上限 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* ★中央寄せのポイント */
+    align-items: center;
+    text-align: center;
+  }
+
+  #problem {
+    font-size: clamp(36px, 9vw, 100px); /* 画面幅に応じて文字サイズが変わる */
+    text-align: center;
+    margin: 24px 0;
+    word-break: break-word;
+    line-height: 1.05;
+  }
+
+  #answer {
+    font-size: clamp(24px, 6vw, 80px);
+    text-align: center;
+    color: #444;
+    margin-bottom: 16px;
+    word-break: break-word;
+  }
+
+  /* 下部固定（スマホ用）の広告領域確保 */
+  .ad-bottom {
+    width: 100%;
+    max-width: 780px;
+    margin-top: 8px;
+    box-sizing: border-box;
+  }
+
+  /* 広告を画面下に固定したい場合の wrapper（任意） */
+  .sticky-ad {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: env(safe-area-inset-bottom, 8px) 8px; /* iOS セーフエリア対応 */
+    pointer-events: auto;
+    background: rgba(255,255,255,0.85); /* 半透明背景（邪魔なら削除） */
+  }
+
+/* 本文と下部広告が被らないように余白確保 */
+.bottom-space {
+  height: 90px;
+}
+
+/* 上部広告用スペース */
+.ad-top-space {
+  height: 100px;
+  width: 100%;
+}
+
+/* 下部広告用スペース */
+.ad-bottom-space {
+  height: 100px;
+  width: 100%;
+}
+
+</style>
+
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="コグニサイズ">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+
+</head>
+
+<body>
+
+<div class="ad-top-space"></div>
+
+<div id="app">
+  <div id="problem">問題を読み込んでいます…</div>
+  <div id="answer"></div>
+</div>
+
+
+<div class="ad-bottom-space"></div>
+
+<script>
+// ▼ 問題リスト（大量追加）
+const problems = [
+  // ======== 計算 初級 =========
+  { text: "6 + 3 は？", answer: "9" },
+  { text: "7 + 4 は？", answer: "11" },
+  { text: "9 - 2 は？", answer: "7" },
+  { text: "5 + 8 は？", answer: "13" },
+  { text: "12 - 4 は？", answer: "8" },
+  { text: "3 + 6 は？", answer: "9" },
+  { text: "15 - 7 は？", answer: "8" },
+  { text: "2 + 9 は？", answer: "11" },
+  { text: "10 - 3 は？", answer: "7" },
+  { text: "8 + 5 は？", answer: "13" },
+
+  // ======== 計算 中級 =========
+  { text: "24 - 9 は？", answer: "15" },
+  { text: "17 + 8 は？", answer: "25" },
+  { text: "36 - 19 は？", answer: "17" },
+  { text: "27 + 14 は？", answer: "41" },
+  { text: "45 - 28 は？", answer: "17" },
+  { text: "19 + 23 は？", answer: "42" },
+  { text: "58 - 26 は？", answer: "32" },
+  { text: "32 + 17 は？", answer: "49" },
+  { text: "61 - 34 は？", answer: "27" },
+  { text: "25 + 36 は？", answer: "61" },
+
+  // ======== 計算 上級 =========
+  { text: "123 - 58 は？", answer: "65" },
+  { text: "248 + 137 は？", answer: "385" },
+  { text: "306 - 149 は？", answer: "157" },
+  { text: "452 + 288 は？", answer: "740" },
+  { text: "789 - 432 は？", answer: "357" },
+  { text: "918 - 507 は？", answer: "411" },
+  { text: "367 + 459 は？", answer: "826" },
+  { text: "502 - 279 は？", answer: "223" },
+  { text: "634 + 281 は？", answer: "915" },
+  { text: "901 - 388 は？", answer: "513" },
+
+{ text: "12 + 7 は？", answer: "19" },
+{ text: "5 + 18 は？", answer: "23" },
+{ text: "27 + 14 は？", answer: "41" },
+{ text: "33 + 22 は？", answer: "55" },
+{ text: "48 + 19 は？", answer: "67" },
+{ text: "56 + 17 は？", answer: "73" },
+{ text: "62 + 28 は？", answer: "90" },
+{ text: "71 + 14 は？", answer: "85" },
+{ text: "83 + 16 は？", answer: "99" },
+{ text: "94 + 5 は？", answer: "99" },
+
+{ text: "18 - 7 は？", answer: "11" },
+{ text: "25 - 9 は？", answer: "16" },
+{ text: "41 - 15 は？", answer: "26" },
+{ text: "55 - 22 は？", answer: "33" },
+{ text: "67 - 19 は？", answer: "48" },
+{ text: "73 - 17 は？", answer: "56" },
+{ text: "90 - 28 は？", answer: "62" },
+{ text: "85 - 14 は？", answer: "71" },
+{ text: "99 - 16 は？", answer: "83" },
+{ text: "99 - 5 は？", answer: "94" },
+
+{ text: "124 + 87 は？", answer: "211" },
+{ text: "312 + 129 は？", answer: "441" },
+{ text: "415 + 266 は？", answer: "681" },
+{ text: "528 + 147 は？", answer: "675" },
+{ text: "689 + 210 は？", answer: "899" },
+{ text: "742 + 133 は？", answer: "875" },
+{ text: "856 + 92 は？", answer: "948" },
+{ text: "933 + 11 は？", answer: "944" },
+{ text: "711 + 188 は？", answer: "899" },
+{ text: "602 + 307 は？", answer: "909" },
+
+{ text: "452 - 187 は？", answer: "265" },
+{ text: "611 - 239 は？", answer: "372" },
+{ text: "734 - 312 は？", answer: "422" },
+{ text: "899 - 214 は？", answer: "685" },
+{ text: "765 - 347 は？", answer: "418" },
+{ text: "580 - 199 は？", answer: "381" },
+{ text: "660 - 255 は？", answer: "405" },
+{ text: "910 - 488 は？", answer: "422" },
+{ text: "840 - 129 は？", answer: "711" },
+{ text: "999 - 321 は？", answer: "678" },
+
+{ text: "14 + 68 は？", answer: "82" },
+{ text: "25 + 57 は？", answer: "82" },
+{ text: "36 + 46 は？", answer: "82" },
+{ text: "47 + 35 は？", answer: "82" },
+{ text: "58 + 24 は？", answer: "82" },
+{ text: "69 + 13 は？", answer: "82" },
+{ text: "73 + 9 は？", answer: "82" },
+{ text: "81 + 1 は？", answer: "82" },
+{ text: "92 - 10 は？", answer: "82" },
+{ text: "100 - 18 は？", answer: "82" },
+
+{ text: "213 + 104 は？", answer: "317" },
+{ text: "412 + 205 は？", answer: "617" },
+{ text: "517 + 318 は？", answer: "835" },
+{ text: "623 + 174 は？", answer: "797" },
+{ text: "734 + 255 は？", answer: "989" },
+{ text: "805 + 113 は？", answer: "918" },
+{ text: "912 + 72 は？", answer: "984" },
+{ text: "681 + 219 は？", answer: "900" },
+{ text: "590 + 330 は？", answer: "920" },
+{ text: "444 + 556 は？", answer: "1000" },
+
+{ text: "721 - 408 は？", answer: "313" },
+{ text: "612 - 199 は？", answer: "413" },
+{ text: "815 - 507 は？", answer: "308" },
+{ text: "999 - 432 は？", answer: "567" },
+{ text: "834 - 216 は？", answer: "618" },
+{ text: "700 - 345 は？", answer: "355" },
+{ text: "640 - 288 は？", answer: "352" },
+{ text: "555 - 327 は？", answer: "228" },
+{ text: "803 - 411 は？", answer: "392" },
+{ text: "910 - 499 は？", answer: "411" },
+
+{ text: "11 + 44 は？", answer: "55" },
+{ text: "22 + 33 は？", answer: "55" },
+{ text: "60 - 5 は？", answer: "55" },
+{ text: "100 - 45 は？", answer: "55" },
+{ text: "200 - 145 は？", answer: "55" },
+{ text: "27 + 28 は？", answer: "55" },
+{ text: "30 + 25 は？", answer: "55" },
+{ text: "80 - 25 は？", answer: "55" },
+{ text: "155 - 100 は？", answer: "55" },
+{ text: "300 - 245 は？", answer: "55" },
+
+{ text: "102 + 87 は？", answer: "189" },
+{ text: "188 + 166 は？", answer: "354" },
+{ text: "275 + 309 は？", answer: "584" },
+{ text: "364 + 227 は？", answer: "591" },
+{ text: "420 + 478 は？", answer: "898" },
+{ text: "511 + 388 は？", answer: "899" },
+{ text: "609 + 207 は？", answer: "816" },
+{ text: "710 + 190 は？", answer: "900" },
+{ text: "840 + 111 は？", answer: "951" },
+{ text: "933 + 44 は？", answer: "977" },
+
+{ text: "121 + 38 は？", answer: "159" },
+{ text: "244 + 67 は？", answer: "311" },
+{ text: "318 + 105 は？", answer: "423" },
+{ text: "462 + 88 は？", answer: "550" },
+{ text: "579 + 120 は？", answer: "699" },
+{ text: "681 + 143 は？", answer: "824" },
+{ text: "732 + 167 は？", answer: "899" },
+{ text: "804 + 95 は？", answer: "899" },
+{ text: "915 + 44 は？", answer: "959" },
+{ text: "990 + 9 は？", answer: "999" },
+
+{ text: "200 - 81 は？", answer: "119" },
+{ text: "310 - 128 は？", answer: "182" },
+{ text: "450 - 267 は？", answer: "183" },
+{ text: "578 - 199 は？", answer: "379" },
+{ text: "689 - 350 は？", answer: "339" },
+{ text: "712 - 312 は？", answer: "400" },
+{ text: "815 - 413 は？", answer: "402" },
+{ text: "934 - 522 は？", answer: "412" },
+{ text: "678 - 245 は？", answer: "433" },
+{ text: "502 - 89 は？", answer: "413" },
+
+{ text: "17 + 56 は？", answer: "73" },
+{ text: "28 + 43 は？", answer: "71" },
+{ text: "35 + 49 は？", answer: "84" },
+{ text: "44 + 38 は？", answer: "82" },
+{ text: "59 + 31 は？", answer: "90" },
+{ text: "63 + 27 は？", answer: "90" },
+{ text: "72 + 18 は？", answer: "90" },
+{ text: "81 + 9 は？", answer: "90" },
+{ text: "97 - 7 は？", answer: "90" },
+{ text: "150 - 60 は？", answer: "90" },
+
+{ text: "147 + 256 は？", answer: "403" },
+{ text: "214 + 389 は？", answer: "603" },
+{ text: "303 + 499 は？", answer: "802" },
+{ text: "456 + 321 は？", answer: "777" },
+{ text: "512 + 412 は？", answer: "924" },
+{ text: "618 + 277 は？", answer: "895" },
+{ text: "701 + 199 は？", answer: "900" },
+{ text: "820 + 130 は？", answer: "950" },
+{ text: "905 + 95 は？", answer: "1000" },
+{ text: "345 + 555 は？", answer: "900" },
+
+{ text: "777 - 345 は？", answer: "432" },
+{ text: "845 - 333 は？", answer: "512" },
+{ text: "902 - 411 は？", answer: "491" },
+{ text: "650 - 128 は？", answer: "522" },
+{ text: "764 - 287 は？", answer: "477" },
+{ text: "890 - 345 は？", answer: "545" },
+{ text: "945 - 512 は？", answer: "433" },
+{ text: "800 - 299 は？", answer: "501" },
+{ text: "999 - 477 は？", answer: "522" },
+{ text: "612 - 219 は？", answer: "393" },
+
+{ text: "110 + 203 は？", answer: "313" },
+{ text: "221 + 104 は？", answer: "325" },
+{ text: "350 + 188 は？", answer: "538" },
+{ text: "479 + 210 は？", answer: "689" },
+{ text: "581 + 317 は？", answer: "898" },
+{ text: "602 + 211 は？", answer: "813" },
+{ text: "703 + 196 は？", answer: "899" },
+{ text: "856 + 88 は？", answer: "944" },
+{ text: "910 + 77 は？", answer: "987" },
+{ text: "999 + 1 は？", answer: "1000" },
+
+{ text: "300 - 125 は？", answer: "175" },
+{ text: "412 - 211 は？", answer: "201" },
+{ text: "580 - 308 は？", answer: "272" },
+{ text: "699 - 412 は？", answer: "287" },
+{ text: "804 - 499 は？", answer: "305" },
+{ text: "900 - 345 は？", answer: "555" },
+{ text: "777 - 249 は？", answer: "528" },
+{ text: "622 - 198 は？", answer: "424" },
+{ text: "540 - 215 は？", answer: "325" },
+{ text: "980 - 468 は？", answer: "512" },
+
+{ text: "60 + 14 は？", answer: "74" },
+{ text: "27 + 66 は？", answer: "93" },
+{ text: "89 + 11 は？", answer: "100" },
+{ text: "45 + 55 は？", answer: "100" },
+{ text: "99 + 1 は？", answer: "100" },
+{ text: "120 - 20 は？", answer: "100" },
+{ text: "140 - 40 は？", answer: "100" },
+{ text: "180 - 80 は？", answer: "100" },
+{ text: "250 - 150 は？", answer: "100" },
+{ text: "300 - 200 は？", answer: "100" },
+
+  // ======== 漢字（魚偏以外も大量追加）=========
+  { text: "木偏に古と書いて何と読みますか？", answer: "枯（かれ）" },
+  { text: "木偏に交と書いて何と読みますか？", answer: "校（こう）" },
+  { text: "人偏に言と書いて何と読みますか？", answer: "信（しん）" },
+  { text: "さんずいに歩と書いて何と読みますか？", answer: "渉（わたる）" },
+  { text: "さんずいに青と書いて何と読みますか？", answer: "清（せい）" },
+  { text: "くさかんむりに楽と書いて何と読みますか？", answer: "薬（くすり）" },
+  { text: "くさかんむりに焦と書いて何と読みますか？", answer: "蕉（しょう）" },
+  { text: "口偏に夏と書いて何と読みますか？", answer: "嗄（かれる）" },
+
+  // ======== 魚偏（追加）=========
+  { text: "魚偏に青と書いて何と読みますか？", answer: "鯖（さば）" },
+  { text: "魚偏に包と書いて何と読みますか？", answer: "鮑（あわび）" },
+  { text: "魚偏に京と書いて何と読みますか？", answer: "鯨（くじら）" },
+  { text: "魚偏に春と書いて何と読みますか？", answer: "鰆（さわら）" },
+  { text: "魚偏に曼と書いて何と読みますか？", answer: "鰻（うなぎ）" },
+  { text: "魚偏に尊と書いて何と読みますか？", answer: "鱒（ます）" },
+  { text: "魚偏に交と書いて何と読みますか？", answer: "鮫（さめ）" },
+  { text: "魚偏に堅と書いて何と読みますか？", answer: "鰹（かつお）" },
+  { text: "魚偏に里と書いて何と読みますか？", answer: "鯉（こい）" },
+
+  // ======== 語想起 =========
+  { text: "果物を3つ言ってください。", answer: "例：りんご、バナナ、みかん" },
+  { text: "“海”から連想するものを3つ言ってください。", answer: "例：青、魚、塩水" },
+  { text: "動物を4つ言ってください。", answer: "例：犬、猫、猿、ライオン" },
+
+  // ======== 推理 =========
+  { text: "1,3,5,7…次は？", answer: "9" },
+  { text: "1から10まで2つ飛ばしで数えてください。", answer: "1,3,5,7,9" },
+  { text: "20から0まで3つ飛ばしで数えてください。", answer: "20,17,14,11,8,5,2" },
+  { text: "水金地火木…次は？", answer: "土" },
+  { text: "冷蔵庫のなかにいる動物ってなーんだ？", answer: "ぞう" },
+
+  // ======== なぞなぞ =========
+  { text: "扉の真ん中に「リ」と書いたら、ある食べ物が出てきました。それはなんでしょうか？", answer: "ドリア" },
+  { text: "車がひっくり返ったら、どんな形になったでしょうか？", answer: "まるくなった" },
+  { text: "増えることはあっても減ることはないものはなんでしょうか？", answer: "年" },
+  { text: "拾うとお金がかかるものはなんでしょうか？", answer: "タクシー" },
+  { text: "何もしなくても増えてしまう花があります。どんな花でしょうか？", answer: "造花" },
+  { text: "かけたり、たったり、つぶしたりはできるけど戻せないものはなんでしょうか？", answer: "時間" },
+  { text: "ジャガイモ・タマネギ・ニンジンを積んで走っているトラックが、急カーブの際に落としたのは何？", answer: "速度" },
+  { text: "お酒が飲めるのは20歳から。では普通自動車に乗れるのは何歳から？", answer: "０歳から" },
+  { text: "コップをひっくり返したのに、テーブルがぬれていないのはなぜ？", answer: "コップが空だったから" },
+  { text: "風邪にかかった人が、次にかかるのは何？", answer: "医者" },
+  { text: "「め」や「はな」はあるのに、「くち」や「みみ」がない物って？", answer: "植物" }
+];
+
+// ▼ 読み上げ（＋をたす −をひく に置換）
+function safeSpeak(text) {
+  let readText = text
+    .replace(/\+/g, " たす ")
+    .replace(/-/g, " ひく ");
+
+  if ('speechSynthesis' in window) {
+    const u = new SpeechSynthesisUtterance(readText); // ← 修正ポイント
+    u.lang = 'ja-JP';
+    try { speechSynthesis.cancel(); } catch(e) {}
+    speechSynthesis.speak(u);
+  }
+}
+
+// ▼ タイマー管理
+let answerTimeoutId = null;
+let nextIntervalId = null;
+
+// ▼ 新しい問題
+function newProblem() {
+  if (answerTimeoutId) clearTimeout(answerTimeoutId);
+
+  const p = problems[Math.floor(Math.random() * problems.length)];
+
+  document.getElementById("problem").textContent = p.text;
+  document.getElementById("answer").textContent = "";
+
+  safeSpeak(p.text);
+
+  answerTimeoutId = setTimeout(() => {
+    document.getElementById("answer").textContent = "答え：" + p.answer;
+    safeSpeak("答えは " + p.answer + " です");
+  }, 10000);
+}
+
+// ▼ 自動進行（15秒）
+function startAuto() {
+  if (nextIntervalId) clearInterval(nextIntervalId);
+  newProblem();
+  nextIntervalId = setInterval(newProblem, 15000);
+}
+
+startAuto();
+
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js')
+    .then(() => console.log('SW registered'))
+    .catch((e) => console.log('SW failed', e));
+}
+</script>
+</body>
+</html>

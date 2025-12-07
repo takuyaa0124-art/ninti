@@ -1,7 +1,7 @@
 {
   "name": "コグニサイズ脳トレ",
   "short_name": "コグニサイズ",
-  "start_url": "/認知症予防アプリ.html",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",

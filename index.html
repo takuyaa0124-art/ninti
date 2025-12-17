@@ -124,8 +124,7 @@
 <div class="ad-bottom-space"></div>
 
 <script>
-// ▼ 問題リスト
-...
+
 // ▼ 問題リスト（大量追加）
 const problems = [
   // ======== 計算 初級 =========
@@ -637,22 +636,17 @@ const problems = [
 
 function safeSpeak(text) {
   if ('speechSynthesis' in window) {
-    let readText = text.replace(/\+/g, " たす ").replace(/-/g, " ひく ");
-    const u = new SpeechSynthesisUtterance(readText);
-    u.lang = 'ja-JP';
-    try { window.speechSynthesis.cancel(); } catch(e) {}
-    window.speechSynthesis.speak(u);
-  }
-}
-
-// ▼ タイfunction safeSpeak(text) {
-  if ('speechSynthesis' in window) {
+    // 記号を言葉に変換
     let readText = text.replace(/\+/g, " たす ").replace(/-/g, " ひく ");
     const u = new SpeechSynthesisUtterance(readText);
     u.lang = 'ja-JP';
     u.rate = 1.0;
-    try { window.speechSynthesis.cancel(); } catch(e) {}
-    window.speechSynthesis.speak(u);
+    try {
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(u);
+    } catch (e) {
+      console.error("Speech synthesis error:", e);
+    }
   }
 }
 

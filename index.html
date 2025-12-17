@@ -505,7 +505,8 @@ const problems = [
 { text: "slow は日本語で何ですか？", answer: "遅い" },
 { text: "heavy は日本語で何ですか？", answer: "重い" },
 { text: "light は日本語で何ですか？", answer: "軽い" },
-{ text: "quiet は日本語で何ですか？", answer: "静かな" }
+{ text: "quiet は日本語で何ですか？", answer: "静かな" },
+
 { text: "「りんご」は英語で何と言いますか？", answer: "apple" },
 { text: "「水」は英語で何と言いますか？", answer: "water" },
 { text: "「犬」は英語で何と言いますか？", answer: "dog" },
@@ -636,17 +637,13 @@ const problems = [
   { text: "「め」や「はな」はあるのに、「くち」や「みみ」がない物って？", answer: "植物" }
 ];
 
-// ▼ 読み上げ（＋をたす −をひく に置換）
 function safeSpeak(text) {
-  let readText = text
-    .replace(/\+/g, " たす ")
-    .replace(/-/g, " ひく ");
-
   if ('speechSynthesis' in window) {
-    const u = new SpeechSynthesisUtterance(readText); // ← 修正ポイント
+    let readText = text.replace(/\+/g, " たす ").replace(/-/g, " ひく ");
+    const u = new SpeechSynthesisUtterance(readText);
     u.lang = 'ja-JP';
-    try { speechSynthesis.cancel(); } catch(e) {}
-    speechSynthesis.speak(u);
+    try { window.speechSynthesis.cancel(); } catch(e) {}
+    window.speechSynthesis.speak(u);
   }
 }
 
@@ -678,7 +675,9 @@ function startAuto() {
   nextIntervalId = setInterval(newProblem, 15000);
 }
 
-startAuto();
+window.onload = () => {
+  startAuto();
+};
 
 </script>
 

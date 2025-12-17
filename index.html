@@ -499,13 +499,11 @@ const problems = [
 { text: "「遅い」は英語で何と言いますか？", answer: "slow" },
 { text: "「重い」は英語で何と言いますか？", answer: "heavy" },
 { text: "「軽い」は英語で何と言いますか？", answer: "light" },
-{ text: "「静かな」は英語で何と言いますか？", answer: "quiet" },
 
 { text: "fast は日本語で何ですか？", answer: "速い" },
 { text: "slow は日本語で何ですか？", answer: "遅い" },
 { text: "heavy は日本語で何ですか？", answer: "重い" },
 { text: "light は日本語で何ですか？", answer: "軽い" },
-{ text: "quiet は日本語で何ですか？", answer: "静かな" },
 
 { text: "「りんご」は英語で何と言いますか？", answer: "apple" },
 { text: "「水」は英語で何と言いますか？", answer: "water" },
@@ -647,14 +645,24 @@ function safeSpeak(text) {
   }
 }
 
-// ▼ タイマー管理
+// ▼ タイfunction safeSpeak(text) {
+  if ('speechSynthesis' in window) {
+    let readText = text.replace(/\+/g, " たす ").replace(/-/g, " ひく ");
+    const u = new SpeechSynthesisUtterance(readText);
+    u.lang = 'ja-JP';
+    u.rate = 1.0;
+    try { window.speechSynthesis.cancel(); } catch(e) {}
+    window.speechSynthesis.speak(u);
+  }
+}
+
 let answerTimeoutId = null;
 let nextIntervalId = null;
 
-// ▼ 新しい問題
+// 問題の切り替え
 function newProblem() {
   if (answerTimeoutId) clearTimeout(answerTimeoutId);
-
+  
   const p = problems[Math.floor(Math.random() * problems.length)];
 
   document.getElementById("problem").textContent = p.text;
@@ -662,6 +670,7 @@ function newProblem() {
 
   safeSpeak(p.text);
 
+  // 10秒後に答えを表示
   answerTimeoutId = setTimeout(() => {
     document.getElementById("answer").textContent = "答え：" + p.answer;
     safeSpeak("答えは " + p.answer + " です");

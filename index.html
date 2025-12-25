@@ -111,6 +111,7 @@
 <header style="width: 100%; text-align: center; background: #f8f9fa; padding: 10px 0; border-bottom: 1px solid #ddd;">
     <nav>
         <a href="./index.html" style="margin: 0 10px; text-decoration: none; color: #333; font-weight: bold;">トップ</a>
+        <a href="./diagnosis.html" style="margin: 0 10px; text-decoration: none; color: #28a745; font-weight: bold;">健康性格診断</a>
         <a href="./article1.html" style="margin: 0 10px; text-decoration: none; color: #007bff;">コグニサイズ情報</a>
         <a href="./about.html" style="margin: 0 10px; text-decoration: none; color: #333;">アプリについて</a>
     </nav>
@@ -121,6 +122,49 @@
   <div id="problem">問題を読み込んでいます…</div>
   <div id="answer"></div>
 </div>
+<div style="text-align: center; margin: 10px 0;">
+  <button onclick="toggleAuto()" id="stopBtn" style="padding: 12px 30px; border-radius: 50px; border: 2px solid #3182ce; background-color: #ffffff; color: #3182ce; font-weight: bold; cursor: pointer; font-size: 18px; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    一時停止
+  </button>
+</div>
+<div style="text-align: center; margin: 20px 0;">
+  <a href="./diagnosis.html" style="display: inline-block; padding: 18px 28px; background: #3182ce; color: white; text-decoration: none; font-weight: bold; border-radius: 12px; box-shadow: 0 4px 12px rgba(49,130,206,0.3); font-size: 18px;">
+    🧠 30秒でわかる！<br><span style="font-size: 14px;">あなたに最適な運動プラン診断</span>
+  </a>
+</div>
+
+<section id="explanation" style="max-width: 780px; margin: 40px auto; text-align: left; line-height: 1.8; color: #333; padding: 0 16px;">
+  <h2 style="border-bottom: 2px solid #007bff; padding-bottom: 10px; font-size: 20px;">コグニサイズで脳を活性化：運動と脳トレの相乗効果</h2>
+  
+  <p>
+    当アプリは、国立長寿医療研究センターが開発した<b>「コグニサイズ（Cognicise）」</b>を、自宅で手軽に実践するために設計されました。
+    認知症予防において注目されているアプローチです。
+  </p>
+
+  <div style="background: #f0f7ff; padding: 20px; border-radius: 10px; margin: 20px 0;">
+    <h3 style="margin-top: 0; color: #0056b3; font-size: 18px;">なぜ「計算」しながら「動く」のが良いのか？</h3>
+    <p>
+      脳は同時に二つの作業を行う<b>「デュアルタスク（二重課題）」</b>の状態で最も活性化します。
+      足踏みをしながら問題を解くことで、記憶を司る「海馬」や思考を司る「前頭葉」の機能を刺激します。
+    </p>
+  </div>
+
+  <h3 style="color: #333; font-size: 18px;">このアプリの正しい使い方</h3>
+  <ol>
+    <li><b>準備：</b> 安全なスペースを確保。椅子に座ったままでも効果があります。</li>
+    <li><b>スタート：</b> 15秒ごとに計算や漢字の問題が自動で出題されます。</li>
+    <li><b>足踏み：</b> 出題に合わせて、一定のリズムで足踏みを開始してください。</li>
+    <li><b>回答：</b> 足踏みを止めずに、声に出して答えましょう。</li>
+  </ol>
+
+  <p style="text-align: center; margin-top: 30px;">
+    <a href="./article2.html" style="color: #007bff; font-weight: bold; text-decoration: none;">→ 【2026年最新版】認知症予防の新常識を詳しく読む</a>
+  </p>
+
+  <p style="margin-top: 30px; font-size: 0.75em; color: #888; text-align: center;">
+    ※本アプリは認知症の診断や治療を行うものではありません。体調に合わせて無理のない範囲で行ってください。
+  </p>
+</section>
 <div class="ad-bottom-space"></div>
 
 <script>
@@ -636,19 +680,15 @@ const problems = [
 
 function safeSpeak(text) {
   if ('speechSynthesis' in window) {
-    // 記号を言葉に変換
+    window.speechSynthesis.cancel(); // 進行中の音声を強制停止
     let readText = text.replace(/\+/g, " たす ").replace(/-/g, " ひく ");
     const u = new SpeechSynthesisUtterance(readText);
     u.lang = 'ja-JP';
     u.rate = 1.0;
-    try {
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(u);
-    } catch (e) {
-      console.error("Speech synthesis error:", e);
-    }
+    window.speechSynthesis.speak(u);
   }
 }
+
 
 let answerTimeoutId = null;
 let nextIntervalId = null;
@@ -677,7 +717,27 @@ function startAuto() {
   newProblem();
   nextIntervalId = setInterval(newProblem, 15000);
 }
+// ▼ 自動進行の停止と再開を切り替える命令
+function toggleAuto() {
+  if (nextIntervalId) {
+    // 【停止処理】タイマーを解除し、ボタンの見た目を変える
+    clearInterval(nextIntervalId);
+    nextIntervalId = null;
+    if (answerTimeoutId) clearTimeout(answerTimeoutId); // 答えの表示待ちも止める
 
+    document.getElementById("stopBtn").textContent = "脳トレを再開する";
+    document.getElementById("stopBtn").style.backgroundColor = "#3182ce";
+    document.getElementById("stopBtn").style.color = "#ffffff";
+  } else {
+    // 【再開処理】次の問題を表示し、タイマーを再セット
+    newProblem();
+    nextIntervalId = setInterval(newProblem, 15000);
+
+    document.getElementById("stopBtn").textContent = "一時停止";
+    document.getElementById("stopBtn").style.backgroundColor = "#ffffff";
+    document.getElementById("stopBtn").style.color = "#3182ce";
+  }
+}
 window.onload = () => {
   startAuto();
 };
@@ -694,6 +754,7 @@ if ('serviceWorker' in navigator) {
 <footer style="text-align: center; margin-top: 40px; padding-bottom: 20px;">
     <p>
         <a href="./index.html" style="margin: 0 10px; font-size: 14px; font-weight: bold;">トップ</a>
+        <a href="./diagnosis.html" style="margin: 0 10px; font-size: 14px; color: #28a745; font-weight: bold;">健康性格診断</a>
         <a href="./article1.html" style="margin: 0 10px; font-size: 14px; color: #007bff;">コグニサイズ情報</a>
         <a href="./about.html" style="margin: 0 10px; font-size: 14px;">このアプリについて</a>
         <a href="./privacy.html" style="margin: 0 10px; font-size: 14px;">プライバシーポリシー</a>

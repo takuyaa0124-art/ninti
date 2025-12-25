@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>認知症予防・健康性格診断</title>
+    <style>
+        body { font-family: 'Helvetica Neue', Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; background-color: #f0f2f5; color: #333; line-height: 1.6; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        h1 { text-align: center; color: #2c3e50; font-size: 22px; margin-bottom: 10px; }
+        .intro { text-align: center; font-size: 14px; color: #666; margin-bottom: 30px; }
+        .question { margin-bottom: 25px; background: #fff; border: 1px solid #edf2f7; padding: 15px; border-radius: 12px; }
+        .question p { font-weight: bold; margin-bottom: 15px; color: #4a5568; }
+        .options { display: flex; flex-direction: column; gap: 10px; }
+        label { display: block; padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 10px; cursor: pointer; transition: all 0.2s; font-size: 15px; }
+        label:hover { background-color: #edf2f7; border-color: #cbd5e0; }
+        input[type="radio"] { display: none; }
+        input[type="radio"]:checked + span::before { content: "●"; color: #3182ce; margin-right: 8px; }
+        input[type="radio"]:checked + span { font-weight: bold; }
+        input[type="radio"]:checked + label { border-color: #3182ce; background-color: #ebf8ff; }
+        
+        /* カスタムラベル用スタイル */
+        .opt-label { border: 2px solid #e2e8f0; border-radius: 10px; padding: 12px; cursor: pointer; display: block; }
+        input[type="radio"]:checked + .opt-label { border-color: #3182ce; background-color: #ebf8ff; color: #2b6cb0; }
+
+        button { width: 100%; font-size: 18px; padding: 18px; background-color: #3182ce; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 20px; box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3); }
+        button:hover { background-color: #2b6cb0; transform: translateY(-1px); }
+        
+        #result { margin-top: 30px; padding: 25px; border-radius: 15px; background-color: #fff; display: none; border: 3px solid #3182ce; animation: fadeIn 0.5s ease; }
+        .result-title { font-size: 22px; color: #2c3e50; margin-bottom: 15px; display: block; text-align: center; }
+        .result-text { white-space: pre-wrap; font-size: 15px; color: #4a5568; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🧠 認知症予防・健康性格診断</h1>
+    <p class="intro">10個の質問に答えて、あなたに最適な運動プランを見つけましょう</p>
+    
+    <form id="quiz">
+        <div class="question">
+            <p>1. 毎朝のルーティン（決まった習慣）を作るのが得意だ</p>
+            <input type="radio" name="q1" value="A" id="q1a" required><label for="q1a" class="opt-label">はい</label>
+            <input type="radio" name="q1" value="C" id="q1b"><label for="q1b" class="opt-label">いいえ</label>
+        </div>
+
+        <div class="question">
+            <p>2. 運動するなら、一人で黙々と取り組みたい</p>
+            <input type="radio" name="q2" value="A" id="q2a"><label for="q2a" class="opt-label">はい</label>
+            <input type="radio" name="q2" value="B" id="q2b"><label for="q2b" class="opt-label">いいえ（誰かといたい）</label>
+        </div>
+
+        <div class="question">
+            <p>3. 自分の歩数や体重の変化をグラフで見るのが好きだ</p>
+            <input type="radio" name="q3" value="D" id="q3a"><label for="q3a" class="opt-label">はい</label>
+            <input type="radio" name="q3" value="C" id="q3b"><label for="q3b" class="opt-label">いいえ（あまり気にしない）</label>
+        </div>
+
+        <div class="question">
+            <p>4. 新しいお店や、行ったことのない道を通るのが好きだ</p>
+            <input type="radio" name="q4" value="C" id="q4a"><label for="q4a" class="opt-label">はい</label>
+            <input type="radio" name="q4" value="A" id="q4b"><label for="q4b" class="opt-label">いいえ（いつもの場所が安心）</label>
+        </div>
+
+        <div class="question">
+            <p>5. 正しいフォームや効率的なやり方をプロから学びたい</p>
+            <input type="radio" name="q5" value="D" id="q5a"><label for="q5a" class="opt-label">はい</label>
+            <input type="radio" name="q5" value="B" id="q5b"><label for="q5b" class="opt-label">いいえ（楽しくできればOK）</label>
+        </div>
+
+        <div class="question">
+            <p>6. 誰かに褒められたり、励まされたりするとやる気が出る</p>
+            <input type="radio" name="q6" value="B" id="q6a"><label for="q6a" class="opt-label">はい</label>
+            <input type="radio" name="q6" value="A" id="q6b"><label for="q6b" class="opt-label">いいえ（自分のペースでやりたい）</label>
+        </div>
+
+        <div class="question">
+            <p>7. 飽きっぽい性格だと思う</p>
+            <input type="radio" name="q7" value="C" id="q7a"><label for="q7a" class="opt-label">はい</label>
+            <input type="radio" name="q7" value="A" id="q7b"><label for="q7b" class="opt-label">いいえ（一度決めたら長い）</label>
+        </div>
+
+        <div class="question">
+            <p>8. 運動教室などで新しい友だちを作るのは楽しい</p>
+            <input type="radio" name="q8" value="B" id="q8a"><label for="q8a" class="opt-label">はい</label>
+            <input type="radio" name="q8" value="D" id="q8b"><label for="q8b" class="opt-label">いいえ（目的だけ果たしたい）</label>
+        </div>
+
+        <div class="question">
+            <p>9. 無理な計画よりも、その時の体調に合わせて動きたい</p>
+            <input type="radio" name="q9" value="C" id="q9a"><label for="q9a" class="opt-label">はい</label>
+            <input type="radio" name="q9" value="D" id="q9b"><label for="q9b" class="opt-label">いいえ（計画通りに進めたい）</label>
+        </div>
+
+        <div class="question">
+            <p>10. 自分一人だと、ついついサボってしまう不安がある</p>
+            <input type="radio" name="q10" value="B" id="q10a"><label for="q10a" class="opt-label">はい</label>
+            <input type="radio" name="q10" value="A" id="q10b"><label for="q10b" class="opt-label">いいえ（一人でも進められる）</label>
+        </div>
+
+        <button type="button" onclick="diagnose()">診断結果を表示する</button>
+    </form>
+
+    <div id="result">
+        <strong class="result-title" id="resTitle"></strong>
+        <p class="result-text" id="resText"></p>
+        <button type="button" onclick="location.reload()" style="background-color: #a0aec0; margin-top: 20px; padding: 10px;">もう一度診断する</button>
+    </div>
+</div>
+
+<script>
+function diagnose() {
+    const scores = { A: 0, B: 0, C: 0, D: 0 };
+    const form = document.getElementById('quiz');
+    const formData = new FormData(form);
+    
+    // 未回答チェック
+    if (Array.from(formData.values()).length < 10) {
+        alert("すべての質問に答えてください！");
+        return;
+    }
+
+    for (let value of formData.values()) {
+        scores[value]++;
+    }
+
+    let maxType = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+
+    const results = {
+        A: {
+            title: "🟢 コツコツ・職人タイプ",
+            text: "あなたは自分のペースを守り、継続することが得意なタイプです！\n\n【おすすめメニュー】\n・毎日の決まった時間のウォーキング\n・週1〜2回のジムでの筋トレ\n\n【効果的な方法】\n基本は一人で進められますが、月に一度だけトレーナーに『正しいフォームの確認』を依頼すると、効率が劇的に上がり、怪我の予防にもなります。"
+        },
+        B: {
+            title: "🟡 わいわい・社交タイプ",
+            text: "あなたは人との繋がりがモチベーションになるタイプです！\n\n【おすすめメニュー】\n・地域の健康教室やダンスサークル\n・友人との散歩\n\n【効果的な方法】\n一人だと続きにくいので、定期的に励ましてくれるパーソナルトレーナーをつけるのがベスト！『誰かと一緒に頑張る環境』を作ることが、健康への近道です。"
+        },
+        C: {
+            title: "🔵 好奇心・冒険家タイプ",
+            text: "あなたは新しい刺激が脳の活性化に直結するタイプです！\n\n【おすすめメニュー】\n・毎回違うルートを歩く、運動する環境を時々変える\n・季節ごとの新しいスポーツ（水泳やハイキング）\n\n【効果的な方法】\nマンネリ化が一番の敵です。パーソナルトレーナーを活用し、毎回『新しい刺激的なメニュー』を提案してもらうことで、飽きずに楽しく脳を若返らせることができます。"
+        },
+        D: {
+            title: "🔴 効率・データ重視タイプ",
+            text: "あなたは根拠や成果がはっきり見えると燃えるタイプです！\n\n【おすすめメニュー】\n・心拍数や歩数をログに取るウォーキング\n・体組成計での筋肉量チェック\n\n【効果的な方法】\n専門知識を持ったトレーナーから、数値に基づいたフィードバックを受けるのが最適です。今の自分の状態を客観的に分析してもらうことで、納得感を持って予防に取り組めます。"
+        }
+    };
+
+    document.getElementById("resTitle").innerText = results[maxType].title;
+    document.getElementById("resText").innerText = results[maxType].text;
+    document.getElementById("result").style.display = "block";
+    document.getElementById("quiz").style.display = "none";
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

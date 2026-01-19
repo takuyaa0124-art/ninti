@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://whimsical-narwhal-e97103.netlify.app/sitemap.xml

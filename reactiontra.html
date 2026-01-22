@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>反応診断｜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f7fb;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+      color: #333;
+    }
+    h1 {
+      font-size: 1.5rem;
+      color: #1a202c;
+    }
+    .card {
+      background: #fff;
+      padding: 30px 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .circle {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      margin: 20px auto;
+      background: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      user-select: none;
+      cursor: pointer;
+      transition: transform 0.1s, background-color 0.2s;
+      border: 8px solid #cbd5e0;
+    }
+    .circle:active {
+      transform: scale(0.95);
+    }
+    .active {
+      background: #f87171 !important;
+      border-color: #ef4444 !important;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+    }
+    .ready {
+      background: #fbbf24 !important;
+      border-color: #f59e0b !important;
+      color: #fff;
+    }
+    button {
+      padding: 15px 30px;
+      border-radius: 50px;
+      border: none;
+      background: #4f46e5;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #4338ca;
+    }
+    button:disabled {
+      background: #9fa8da;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    .result-display {
+      margin-top: 25px;
+      padding: 15px;
+      border-radius: 12px;
+      display: none; /* 初期は非表示 */
+    }
+    .time-val {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 5px 0;
+    }
+    .rank-tag {
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 20px;
+      color: #fff;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+    /* ランク別カラー */
+    .rank-athlete { background: #8b5cf6; } /* プロ級 */
+    .rank-good { background: #10b981; }    /* 優良 */
+    .rank-average { background: #3b82f6; } /* 平均 */
+    .rank-slow { background: #6b7280; }    /* 慎重 */
+
+    .history {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #718096;
+    }
+    .back-link {
+      margin-top: 30px;
+      display: block;
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>反応・レスポンストレーニング</h1>
+
+  <div class="card">
+    <p id="instruction">「スタート」を押して待機。<br>色が<strong>赤</strong>に変わったらすぐタップ！</p>
+
+    <div id="circle" class="circle">待機中</div>
+
+    <button id="startBtn">スタート！</button>
+
+    <div id="resultArea" class="result-display">
+      <div id="resultText">あなたの反応速度</div>
+      <div class="time-val"><span id="ms">---</span> ms</div>
+      <div id="rankTag" class="rank-tag">判定中</div>
+      <p id="comment" style="margin-top:10px; font-size: 0.9rem;"></p>
+    </div>
+
+    <div class="history" id="bestScore">自己ベスト: -- ms</div>
+  </div>
+
+  <a href="./index.html" class="back-link">← 脳トレメニューへ戻る</a>
+
+  <script>
+    const circle = document.getElementById('circle');
+    const startBtn = document.getElementById('startBtn');
+    const resultArea = document.getElementById('resultArea');
+    const msDisplay = document.getElementById('ms');
+    const rankTag = document.getElementById('rankTag');
+    const comment = document.getElementById('comment');
+    const bestDisplay = document.getElementById('bestScore');
+
+    let startTime = 0;
+    let timeoutId = null;
+    let waiting = false;
+    let bestScore = Infinity;
+
+    // 判定基準のデータ
+    function getRank(time) {
+      if (time < 200) return { label: "プロアスリート級", class: "rank-athlete", text: "神速です！驚異的な反応速度ですね。" };
+      if (time < 300) return { label: "スポーツマン級", class: "rank-good", text: "非常に速いです！スポーツで活躍できるレベル。" };
+      if (time < 450) return { label: "標準（平均的）", class: "rank-average", text: "一般的な反応速度です。日常生活には全く問題ありません。" };
+      return { label: "のんびり・慎重派", class: "rank-slow", text: "少しゆっくりめです。繰り返し挑戦して脳を活性化しましょう！" };
+    }
+
+    startBtn.addEventListener('click', () => {
+      resultArea.style.display = 'none';
+      circle.classList.remove('active', 'ready');
+      circle.textContent = 'じっと待機...';
+      startBtn.disabled = true;
+
+      // 1.5秒〜4秒の間でランダムに
+      const delay = Math.random() * 2500 + 1500;
+      waiting = true;
+
+      timeoutId = setTimeout(() => {
+        circle.classList.add('active');
+        circle.textContent = '今だ！';
+        startTime = performance.now();
+      }, delay);
+    });
+
+    circle.addEventListener('click', () => {
+      if (!circle.classList.contains('active')) {
+        if (waiting) {
+          clearTimeout(timeoutId);
+          alert('フライングです！\n赤くなるまで待ってくださいね。');
+          resetGame();
+        }
+        return;
+      }
+
+      // 反応時間の計算
+      const reactionTime = Math.round(performance.now() - startTime);
+      
+      // 結果の表示
+      msDisplay.textContent = reactionTime;
+      const rank = getRank(reactionTime);
+      
+      rankTag.textContent = rank.label;
+      rankTag.className = 'rank-tag ' + rank.class;
+      comment.textContent = rank.text;
+      resultArea.style.display = 'block';
+
+      // 自己ベスト更新
+      if (reactionTime < bestScore) {
+        bestScore = reactionTime;
+        bestDisplay.textContent = `自己ベスト: ${bestScore} ms ✨`;
+        bestDisplay.style.color = "#e63946";
+        bestDisplay.style.fontWeight = "bold";
+      }
+
+      resetGame();
+    });
+
+    function resetGame() {
+      circle.classList.remove('active');
+      circle.textContent = '完了';
+      startBtn.disabled = false;
+      startBtn.textContent = 'もう一度挑戦';
+      waiting = false;
+    }
+  </script>
+</body>
+</html>

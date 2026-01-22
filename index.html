@@ -751,7 +751,7 @@ const problems = [
   { text: "「たぬき」を逆さまから読むと？", answer: "きぬた" },
   { text: "「アイスクリーム」を逆さまから読むと？", answer: "むーりくすいあ" },
   { text: "「ん、り、ご」を並び替えてできる果物は？", answer: "りんご" },
-  { text: "「う、き、よ、き」を並び替えてできる日本の都市は？", answer: "とうきょう" },
+  { text: "「う、き、と、よ、き」を並び替えてできる日本の都市は？", answer: "とうきょう" },
 
   // ======== なぞなぞ（一捻り系） =========
   { text: "食べると安心する「パン」ってなーんだ？", answer: "フライパン（不安がない）※またはアンパン" },
@@ -759,6 +759,105 @@ const problems = [
   { text: "中身が入っているのに「空（から）」と言われる箱は？", answer: "カラオケ" },
   { text: "使うときは投げて、使わないときは引き上げるものは？", answer: "錨（いかり）" },
   { text: "おじいちゃんとやる球技ってなーんだ？", answer: "ソフトボール（祖父とボール）" },
+// ======== 計算（少しひねった応用編） =========
+  { text: "1から5まで全部足すといくつですか？", answer: "15" },
+  { text: "1ダースは何個のことですか？", answer: "12個" },
+  { text: "1分間は何秒ですか？", answer: "60秒" },
+  { text: "100円を持って30円の消しゴムを2個買いました。お釣りは？", answer: "40円" },
+  { text: "「10、20、30、？、50」 ？に入る数字は？", answer: "40" },
+  { text: "三角形の角の数はいくつですか？", answer: "3つ" },
+
+  // ======== 漢字（体・自然・対義語） =========
+  { text: "「月」に「旨」と書いて何と読みますか？", answer: "脂（あぶら）" },
+  { text: "「目」に「垂」と書いて何と読みますか？", answer: "唾（つば）" },
+  { text: "「山」の下に「石」と書いて何と読みますか？", answer: "岩（いわ）" },
+  { text: "「明るい」の反対の意味の漢字は何ですか？", answer: "暗い" },
+  { text: "「重い」の反対の意味の漢字は何ですか？", answer: "軽い" },
+  { text: "「海月」は何と読みますか？", answer: "くらげ" },
+  { text: "「玉蜀黍」は何と読みますか？", answer: "とうもろこし" },
+
+  // ======== ことわざ・慣用句（続きを答える） =========
+  { text: "「弘法（こうぼう）筆を選ばず」と同じ意味で、「猿も木から…」続くのは？", answer: "落ちる" },
+  { text: "「笑う門（かど）には〇〇きたる」 〇〇に入るのは？", answer: "福" },
+  { text: "「三人寄れば〇〇の知恵」 〇〇に入るのは？", answer: "文殊（もんじゅ）" },
+  { text: "「石の上にも〇〇」 〇〇に入るのは？", answer: "三年" },
+  { text: "「備えあれば〇〇なし」 〇〇に入るのは？", answer: "憂い（うれい）" },
+
+  // ======== 生活・一般常識（季節・行事） =========
+  { text: "1年で一番昼が長い日のことを何と言いますか？", answer: "夏至（げし）" },
+  { text: "3月3日の行事は何ですか？", answer: "ひな祭り（桃の節句）" },
+  { text: "お正月に飾る、松と竹でできた飾りは何ですか？", answer: "門松（かどまつ）" },
+  { text: "虹の七色、赤・橙・黄・緑・青・藍…あと一つは？", answer: "紫" },
+  { text: "お米を数える単位「一合」は、およそ何ミリリットル？", answer: "180ml" },
+  { text: "日本一面積が小さい都道府県はどこですか？", answer: "香川県" },
+
+  // ======== 英語（対義語・挨拶） =========
+  { text: "「大きい（Big）」の反対は英語で何ですか？", answer: "small" },
+  { text: "「高い（High）」の反対は英語で何ですか？", answer: "low" },
+  { text: "「熱い（Hot）」の反対は英語で何ですか？", answer: "cold" },
+  { text: "「先生」は英語で何と言いますか？", answer: "teacher" },
+  { text: "「生徒」は英語で何と言いますか？", answer: "student" },
+  { text: "Good afternoon は日本語で何ですか？", answer: "こんにちは" },
+
+  // ======== 並び替えパズル（言葉の再構成） =========
+  { text: "「ら、く、ま」を並び替えてできる寝具は？", answer: "まくら" },
+  { text: "「ん、ふ、と」を並び替えてできる寝具は？", answer: "ふとん" },
+  { text: "「て、き、て、が」を並び替えてできる郵便物は？", answer: "はがき" },
+  { text: "「ん、し、ぶ、ん」を並び替えてできる読み物は？", answer: "しんぶん" },
+
+  // ======== なぞなぞ（思考の転換） =========
+  { text: "どんなに頼んでも、決して「いいよ」と言ってくれない食べ物は何？", answer: "いいえ（いいえ、と聞こえる「イカ」など）※正解：イカ（いいえと言いそう）または「梨（無し）」" },
+  { text: "お父さんが嫌いな食べ物は何？", answer: "パパイヤ" },
+  { text: "いつも口をあけているのに、一言も喋らない履物は何？", answer: "靴（くつ）" },
+  { text: "切っても切っても、切り口が増えるだけで短くならないものは何？", answer: "トランプ（または金太郎飴）" },
+  { text: "朝は4本足、昼は2本足、晩は3本足で歩く生き物は何？", answer: "人間（赤ん坊、成人、杖をついた老人）" },
+  { text: "使っている人には見えず、作っている人は使わず、見ている人は心配するものは？", answer: "棺桶（かんおけ）" },
+// ======== 計算（追加）========
+{ text: "8 + 7 は？", answer: "15" },
+{ text: "9 + 6 は？", answer: "15" },
+{ text: "17 - 8 は？", answer: "9" },
+{ text: "16 - 7 は？", answer: "9" },
+{ text: "14 - 5 は？", answer: "9" },
+
+{ text: "28 + 21 は？", answer: "49" },
+{ text: "36 + 13 は？", answer: "49" },
+{ text: "64 - 15 は？", answer: "49" },
+{ text: "52 - 23 は？", answer: "29" },
+{ text: "47 - 18 は？", answer: "29" },
+// ======== 漢字 穴埋め（追加）========
+{ text: "□に入る漢字は？：散□（さん□）", answer: "歩（散歩）" },
+{ text: "□に入る漢字は？：□気（□き）", answer: "元（元気）" },
+{ text: "□に入る漢字は？：電□（でん□）", answer: "話（電話）" },
+{ text: "□に入る漢字は？：入□（にゅう□）", answer: "浴（入浴）" },
+{ text: "□に入る漢字は？：外□（がい□）", answer: "出（外出）" },
+// ======== 熟語（追加）========
+{ text: "健康で元気な状態を表す熟語は？", answer: "心身健全" },
+{ text: "努力して技術や能力を高めることを表す熟語は？", answer: "切磋琢磨" },
+{ text: "落ち着いてゆっくり行うことを表す熟語は？", answer: "泰然自若" },
+{ text: "人に親切にすることを表す熟語は？", answer: "親切丁寧" },
+{ text: "無理をしすぎることを表す熟語は？", answer: "過労無理" },
+// ======== 魚偏（追加）========
+{ text: "魚偏に春と書いて何と読みますか？", answer: "鰆（さわら）" },
+{ text: "魚偏に雪と書いて何と読みますか？", answer: "鱈（たら）" },
+{ text: "魚偏に秋と書いて何と読みますか？", answer: "鰍（かじか）" },
+{ text: "魚偏に冬と書いて何と読みますか？", answer: "鱚（きす）" },
+{ text: "魚偏に青と書いて何と読みますか？", answer: "鯖（さば）" },
+// ======== 英単語（追加）========
+{ text: "「健康」は英語で何と言いますか？", answer: "health" },
+{ text: "「運動」は英語で何と言いますか？", answer: "exercise" },
+{ text: "「治療」は英語で何と言いますか？", answer: "treatment" },
+{ text: "「回復」は英語で何と言いますか？", answer: "recovery" },
+{ text: "「習慣」は英語で何と言いますか？", answer: "habit" },
+
+{ text: "exercise は日本語で何ですか？", answer: "運動" },
+{ text: "recovery は日本語で何ですか？", answer: "回復" },
+// ======== 社会・生活（追加）========
+{ text: "日本で一番長い川は何ですか？", answer: "信濃川" },
+{ text: "1円玉に描かれている植物は何ですか？", answer: "若木" },
+{ text: "日本の国鳥は何ですか？", answer: "キジ" },
+{ text: "日本の標準時はどこを基準にしていますか？", answer: "兵庫県明石市" },
+{ text: "電話番号110番は何の緊急連絡ですか？", answer: "警察" },
+
   { text: "「め」や「はな」はあるのに、「くち」や「みみ」がない物って？", answer: "植物" }
 ];
 
@@ -774,14 +873,34 @@ function safeSpeak(text) {
 }
 
 
+// --- ここから差し替え ---
+
 let answerTimeoutId = null;
 let nextIntervalId = null;
+let remainingProblems = []; // 未出題の問題を管理する配列
 
-// 問題の切り替え
+// 問題リストをシャッフルして補充する関数
+function refreshProblems() {
+  // 元の問題リスト(problems)をコピー
+  remainingProblems = [...problems];
+  // フィッシャー・イェーツのシャッフル
+  for (let i = remainingProblems.length - 1; i > 0; i--) {
+    const r = Math.floor(Math.random() * (i + 1));
+    [remainingProblems[i], remainingProblems[r]] = [remainingProblems[r], remainingProblems[i]];
+  }
+}
+
+// 問題の切り替え（重複防止版）
 function newProblem() {
   if (answerTimeoutId) clearTimeout(answerTimeoutId);
-  
-  const p = problems[Math.floor(Math.random() * problems.length)];
+
+  // もし未出題の問題がなくなったら、リストをリセット（一周したら再度全問題を混ぜる）
+  if (remainingProblems.length === 0) {
+    refreshProblems();
+  }
+
+  // リストの最後から1つ取り出す（popすることで重複を防ぐ）
+  const p = remainingProblems.pop();
 
   document.getElementById("problem").textContent = p.text;
   document.getElementById("answer").textContent = "";
@@ -795,38 +914,55 @@ function newProblem() {
   }, 10000);
 }
 
-// ▼ 自動進行（15秒）
+// 自動進行（15秒）
 function startAuto() {
   if (nextIntervalId) clearInterval(nextIntervalId);
   newProblem();
   nextIntervalId = setInterval(newProblem, 15000);
 }
-// ▼ 自動進行の停止と再開を切り替える命令
+
+// 自動進行の停止と再開を切り替える
 function toggleAuto() {
+  const stopBtn = document.getElementById("stopBtn");
+  const currentAnswer = document.getElementById("answer").textContent;
+
   if (nextIntervalId) {
-    // 【停止処理】タイマーを解除
+    // 【停止処理】
     clearInterval(nextIntervalId);
     nextIntervalId = null;
-    
-    // 答えが表示される前のタイマーも解除
-    if (answerTimeoutId) clearTimeout(answerTimeoutId); 
-
-    document.getElementById("stopBtn").textContent = "脳トレを再開する";
-    document.getElementById("stopBtn").style.backgroundColor = "#3182ce";
-    document.getElementById("stopBtn").style.color = "#ffffff";
+    if (answerTimeoutId) {
+      clearTimeout(answerTimeoutId);
+      answerTimeoutId = null;
+    }
+    stopBtn.textContent = "脳トレを再開する";
+    stopBtn.style.backgroundColor = "#3182ce";
+    stopBtn.style.color = "#ffffff";
   } else {
-    // 【再開処理】★newProblem() を呼ばず、タイマーだけ再設定する
-    // これにより、今画面に出ている問題のまま15秒後に次の問題へ移るようになります
-    nextIntervalId = setInterval(newProblem, 15000);
+    // 【再開処理】
+    stopBtn.textContent = "一時停止";
+    stopBtn.style.backgroundColor = "#ffffff";
+    stopBtn.style.color = "#3182ce";
 
-    document.getElementById("stopBtn").textContent = "一時停止";
-    document.getElementById("stopBtn").style.backgroundColor = "#ffffff";
-    document.getElementById("stopBtn").style.color = "#3182ce";
+    if (currentAnswer === "") {
+      const problemText = document.getElementById("problem").textContent;
+      // 元の全リストから現在表示中の問題を探す
+      const currentP = problems.find(p => p.text === problemText);
+      if (currentP) {
+        document.getElementById("answer").textContent = "答え：" + currentP.answer;
+        safeSpeak("答えは " + currentP.answer + " です");
+      }
+    }
+    nextIntervalId = setInterval(newProblem, 10000);
   }
 }
+
+// 起動時の処理
 window.onload = () => {
+  refreshProblems(); // 最初に問題をシャッフルしてセット
   startAuto();
 };
+
+// --- ここまで差し替え ---
 
 </script>
 
@@ -837,15 +973,18 @@ if ('serviceWorker' in navigator) {
     .catch((e) => console.log('SW failed', e));
 }
 </script>
-<footer style="text-align: center; margin-top: 40px; padding-bottom: 20px;">
+<footer style="text-align: center; margin-top: 40px; padding-bottom: 20px; border-top: 1px solid #eee; padding-top: 20px;">
     <p>
-        <a href="./index.html" style="margin: 0 10px; font-size: 14px; font-weight: bold;">トップ</a>
-        <a href="./diagnosis.html" style="margin: 0 10px; font-size: 14px; color: #28a745; font-weight: bold;">健康性格診断</a>
-        <a href="./article1.html" style="margin: 0 10px; font-size: 14px; color: #007bff;">コグニサイズ情報</a>
-        <a href="./about.html" style="margin: 0 10px; font-size: 14px;">このアプリについて</a>
-        <a href="./privacy.html" style="margin: 0 10px; font-size: 14px;">プライバシーポリシー</a>
-        <a href="./contact.html" style="margin: 0 10px; font-size: 14px;">運営者情報</a>
+        <a href="./index.html" style="margin: 0 10px; font-size: 14px; font-weight: bold; text-decoration: none; color: #333;">トップ</a>
+        <a href="./diagnosis.html" style="margin: 0 10px; font-size: 14px; color: #28a745; font-weight: bold; text-decoration: none;">健康性格診断</a>
+        <a href="./article1.html" style="margin: 0 10px; font-size: 14px; color: #007bff; text-decoration: none;">コグニサイズ情報</a>
+        <a href="./about.html" style="margin: 0 10px; font-size: 14px; text-decoration: none; color: #333;">このアプリについて</a>
     </p>
+    <p>
+        <a href="./privacy.html" style="margin: 0 10px; font-size: 12px; color: #888; text-decoration: none;">プライバシーポリシー</a>
+        <a href="./contact.html" style="margin: 0 10px; font-size: 12px; color: #888; text-decoration: none;">運営者情報・お問い合わせ</a>
+    </p>
+    <p style="font-size: 12px; color: #aaa; margin-top: 10px;">&copy; 2026 認知症予防アプリ（コグニサイズ脳トレ）</p>
 </footer>
 
 </body>

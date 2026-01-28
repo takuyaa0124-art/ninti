@@ -149,7 +149,29 @@
   </p>
 </section>
 
+<section class="faq-section" style="max-width: 780px; margin: 50px auto; text-align: left; line-height: 1.8; color: #333; padding: 0 16px; border-top: 2px solid #eee; padding-top: 30px;">
+    <h2 style="text-align: center; color: #333; font-size: 22px; margin-bottom: 30px;">よくある質問（認知症予防FAQ）</h2>
+    
+    <div style="margin-bottom: 20px; background: #f9f9f9; padding: 20px; border-radius: 12px; border-left: 5px solid #28a745;">
+        <p style="margin: 0; font-weight: bold; color: #1e7e34;">Q：コグニサイズは1日何分くらいやるのが効果的ですか？</p>
+        <p style="margin: 10px 0 0 0; font-size: 15px;">A：1日30分程度が目安とされていますが、一度に行う必要はありません。当アプリのように1回数分程度の「ながら脳トレ」を、1日数回に分けて合計30分程度にするだけでも、脳の血流量維持に効果が期待できます。</p>
+    </div>
 
+    <div style="margin-bottom: 20px; background: #f9f9f9; padding: 20px; border-radius: 12px; border-left: 5px solid #28a745;">
+        <p style="margin: 0; font-weight: bold; color: #1e7e34;">Q：足腰が弱く、ウォーキングが難しい場合はどうすればいいですか？</p>
+        <p style="margin: 10px 0 0 0; font-size: 15px;">A：椅子に座った状態での「足踏み」や「かかとの上げ下げ」でも十分に効果があります。大切なのは身体を動かしながら頭を使う（二重課題）ことですので、無理のない範囲でアプリの音声問題に答えてみてください。</p>
+    </div>
+
+    <div style="margin-bottom: 20px; background: #f9f9f9; padding: 20px; border-radius: 12px; border-left: 5px solid #28a745;">
+        <p style="margin: 0; font-weight: bold; color: #1e7e34;">Q：物忘れがひどいのですが、今から始めても意味がありますか？</p>
+        <p style="margin: 10px 0 0 0; font-size: 15px;">A：はい、意味があります。最新の研究では、軽度認知障害（MCI）の段階で適切な介入を行うことで、約3〜4割の方が正常な状態に戻ることが分かっています。早期に脳への刺激を習慣化することが、進行を遅らせる最大の鍵です。</p>
+    </div>
+
+    <div style="margin-bottom: 20px; background: #f9f9f9; padding: 20px; border-radius: 12px; border-left: 5px solid #28a745;">
+        <p style="margin: 0; font-weight: bold; color: #1e7e34;">Q：アプリの利用に料金はかかりますか？</p>
+        <p style="margin: 10px 0 0 0; font-size: 15px;">A：このアプリは、理学療法士として地域貢献の一環で開発したため、基本機能はすべて無料でご利用いただけます。多くの方の健康維持に役立てていただければ幸いです。</p>
+    </div>
+</section>
 <script>
 
 // ▼ 問題リスト（大量追加）
@@ -857,7 +879,89 @@ const problems = [
 { text: "日本の国鳥は何ですか？", answer: "キジ" },
 { text: "日本の標準時はどこを基準にしていますか？", answer: "兵庫県明石市" },
 { text: "電話番号110番は何の緊急連絡ですか？", answer: "警察" },
+// ======== 計算（日常生活・単位の応用） =========
+  { text: "1時間20分は何分ですか？", answer: "80分" },
+  { text: "500円玉1枚の中に、100円玉は何枚分入っていますか？", answer: "5枚" },
+  { text: "「100 - 25」は？", answer: "75" },
+  { text: "3人で15個のお菓子を同じ数ずつ分けると、1人何個？", answer: "5個" },
+  { text: "1リットルは何ミリリットルですか？", answer: "1000ml" },
+  { text: "2倍の2倍は、元の数の何倍ですか？", answer: "4倍" },
 
+  // ======== 漢字（合体・部首・難読） =========
+  { text: "「木」を3つ書くと何という漢字になりますか？", answer: "森" },
+  { text: "「女」に「若」と書いて何と読みますか？", answer: "般若（はんにゃ）※または「め（女）」偏の漢字など" },
+  { text: "「竹」に「毛」と書いて何と読みますか？", answer: "筆（ふで）" },
+  { text: "「手」偏に「取りにいく（取）」と書くと？", answer: "搾（さく）または「搾る」" },
+  { text: "「心」の上に「亡」と書いて何と読みますか？", answer: "忘（わすれる）" },
+  { text: "「土」に「成」と書いて何と読みますか？", answer: "城（しろ）" },
+  { text: "「向日葵」は何と読みますか？", answer: "ひまわり" },
+
+  // ======== 地理・県庁所在地（日本） =========
+  { text: "愛知県の県庁所在地はどこですか？", answer: "名古屋市" },
+  { text: "兵庫県の県庁所在地はどこですか？", answer: "神戸市" },
+  { text: "石川県の県庁所在地はどこですか？", answer: "金沢市" },
+  { text: "香川県の県庁所在地はどこですか？", answer: "高松市" },
+  { text: "日本で面積が一番大きい湖は何ですか？", answer: "琵琶湖" },
+
+  // ======== カタカナ語の日本語変換（認知トレ） =========
+  { text: "「キッチン」を日本語（漢字・ひらがな）で言うと何ですか？", answer: "台所（だいどころ）" },
+  { text: "「パーソナルコンピューター」を略すと何ですか？", answer: "パソコン" },
+  { text: "「メニュー」を日本語で言い換えると何ですか？", answer: "品書き（お品書き）" },
+  { text: "「ホテル」を日本語で言い換えると何ですか？", answer: "宿（旅館・宿泊施設）" },
+
+  // ======== 英語（家族・時間・天気） =========
+  { text: "「父」は英語で何と言いますか？", answer: "father" },
+  { text: "「母」は英語で何と言いますか？", answer: "mother" },
+  { text: "「太陽」は英語で何と言いますか？", answer: "sun" },
+  { text: "「月」は英語で何と言いますか？", answer: "moon" },
+  { text: "Sunday は日本語で何曜日ですか？", answer: "日曜日" },
+  { text: "Saturday は日本語で何曜日ですか？", answer: "土曜日" },
+
+  // ======== なぞなぞ・とんち（ひらめき） =========
+  { text: "お菓子を食べている時に、いつもそばにいる動物はなーんだ？", answer: "シカ（お菓子か）" },
+  { text: "逆立ちすると、1.5倍になる数字はなーんだ？", answer: "6（ひっくり返ると9になるから）" },
+
+
+  { text: "使う前は1本、使うと2本になるものはなーんだ？", answer: "割り箸" },
+// ======== 計算（追加・重複なし）========
+{ text: "7 + 9 は？", answer: "16" },
+{ text: "8 + 6 は？", answer: "14" },
+{ text: "15 - 6 は？", answer: "9" },
+{ text: "14 - 9 は？", answer: "5" },
+{ text: "18 - 7 は？", answer: "11" },
+
+{ text: "22 + 17 は？", answer: "39" },
+{ text: "34 + 15 は？", answer: "49" },
+{ text: "41 - 19 は？", answer: "22" },
+{ text: "58 - 24 は？", answer: "34" },
+{ text: "67 - 28 は？", answer: "39" },
+// ======== 熟語（追加）========
+{ text: "毎日続けることが大切だという意味の熟語は？", answer: "継続力行" },
+{ text: "落ち着いて冷静に行動することを表す熟語は？", answer: "沈着冷静" },
+{ text: "体も心も元気な状態を表す熟語は？", answer: "健康第一" },
+{ text: "人との関係を大切にすることを表す熟語は？", answer: "人間関係" },
+{ text: "計画的に物事を進めることを表す熟語は？", answer: "計画実行" },
+// ======== 魚偏（追加）========
+{ text: "魚偏に交と書いて何と読みますか？", answer: "鮫（さめ）" },
+{ text: "魚偏に喜と書いて何と読みますか？", answer: "鱚（きす）" },
+{ text: "魚偏に曹と書いて何と読みますか？", answer: "鰌（どじょう）" },
+{ text: "魚偏に定と書いて何と読みますか？", answer: "鯵（あじ）" },
+{ text: "魚偏に利と書いて何と読みますか？", answer: "鯏（あさり）" },
+// ======== 英単語（追加）========
+{ text: "「集中」は英語で何と言いますか？", answer: "concentration" },
+{ text: "「記憶」は英語で何と言いますか？", answer: "memory" },
+{ text: "「予防」は英語で何と言いますか？", answer: "prevention" },
+{ text: "「改善」は英語で何と言いますか？", answer: "improvement" },
+{ text: "「安全」は英語で何と言いますか？", answer: "safety" },
+
+{ text: "memory は日本語で何ですか？", answer: "記憶" },
+{ text: "safety は日本語で何ですか？", answer: "安全" },
+// ======== 社会・生活（追加）========
+{ text: "日本の国花は何ですか？", answer: "桜" },
+{ text: "日本の紙幣で一番大きな金額はいくらですか？", answer: "1万円" },
+{ text: "1年は何か月ありますか？", answer: "12か月" },
+{ text: "日本の首都はどこですか？", answer: "東京" },
+  
   { text: "「め」や「はな」はあるのに、「くち」や「みみ」がない物って？", answer: "植物" }
 ];
 

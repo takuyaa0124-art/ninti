@@ -1,43 +1,52 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>認知症予防・健康性格診断</title>
-    <style>
-        body { font-family: 'Helvetica Neue', Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; background-color: #f0f2f5; color: #333; line-height: 1.6; padding: 20px; }
-        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        h1 { text-align: center; color: #2c3e50; font-size: 22px; margin-bottom: 10px; }
-        .intro { text-align: center; font-size: 14px; color: #666; margin-bottom: 30px; }
-        .question { margin-bottom: 25px; background: #fff; border: 1px solid #edf2f7; padding: 15px; border-radius: 12px; }
-        .question p { font-weight: bold; margin-bottom: 15px; color: #4a5568; }
-        .options { display: flex; flex-direction: column; gap: 10px; }
-        label { display: block; padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 10px; cursor: pointer; transition: all 0.2s; font-size: 15px; }
-        label:hover { background-color: #edf2f7; border-color: #cbd5e0; }
-        input[type="radio"] { display: none; }
-        input[type="radio"]:checked + span::before { content: "●"; color: #3182ce; margin-right: 8px; }
-        input[type="radio"]:checked + span { font-weight: bold; }
-        input[type="radio"]:checked + label { border-color: #3182ce; background-color: #ebf8ff; }
-        
-        /* カスタムラベル用スタイル */
-        .opt-label { border: 2px solid #e2e8f0; border-radius: 10px; padding: 12px; cursor: pointer; display: block; }
-        input[type="radio"]:checked + .opt-label { border-color: #3182ce; background-color: #ebf8ff; color: #2b6cb0; }
-
-        button { width: 100%; font-size: 18px; padding: 18px; background-color: #3182ce; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 20px; box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3); }
-        button:hover { background-color: #2b6cb0; transform: translateY(-1px); }
-        
-        #result { margin-top: 30px; padding: 25px; border-radius: 15px; background-color: #fff; display: none; border: 3px solid #3182ce; animation: fadeIn 0.5s ease; }
-        .result-title { font-size: 22px; color: #2c3e50; margin-bottom: 15px; display: block; text-align: center; }
-        .result-text { white-space: pre-wrap; font-size: 15px; color: #4a5568; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【理学療法士監修】認知症リスク・健康性格診断｜あなたに最適な予防法をチェック</title>
+<meta name="description" content="理学療法士・天久拓哉が考案。10個の質問であなたの性格と認知症リスクを分析し、最適なコグニサイズ（脳トレ×運動）プランを提案します。早期発見と習慣化が脳の健康を守ります。">
+<link rel="canonical" href="https://whimsical-narwhal-e97103.netlify.app/diagnosis.html" />
+<style>
+    body { font-family: 'Helvetica Neue', Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; background-color: #f0f2f5; color: #333; line-height: 1.6; padding: 20px; }
+    .container { max-width: 700px; margin: 0 auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+    h1 { text-align: center; color: #2c3e50; font-size: 24px; margin-bottom: 10px; border-bottom: none; }
+    .intro-text { font-size: 15px; color: #4a5568; margin-bottom: 30px; background: #f8f9fa; padding: 15px; border-radius: 10px; border-left: 5px solid #6f42c1; }
+    .question { margin-bottom: 25px; background: #fff; border: 1px solid #edf2f7; padding: 15px; border-radius: 12px; }
+    .question p { font-weight: bold; margin-bottom: 15px; color: #4a5568; }
+    .opt-label { border: 2px solid #e2e8f0; border-radius: 10px; padding: 12px; cursor: pointer; display: block; margin-bottom: 8px; transition: 0.2s; }
+    input[type="radio"] { display: none; }
+    input[type="radio"]:checked + .opt-label { border-color: #3182ce; background-color: #ebf8ff; color: #2b6cb0; font-weight: bold; }
+    
+    button.submit-btn { width: 100%; font-size: 18px; padding: 18px; background-color: #6f42c1; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 20px; box-shadow: 0 4px 12px rgba(111, 66, 193, 0.3); }
+    button.submit-btn:hover { background-color: #5a32a3; transform: translateY(-1px); }
+    
+    #result { margin-top: 30px; padding: 25px; border-radius: 15px; background-color: #fff; display: none; border: 3px solid #6f42c1; animation: fadeIn 0.5s ease; }
+    .result-title { font-size: 22px; color: #2c3e50; margin-bottom: 15px; display: block; text-align: center; font-weight: bold; }
+    .result-text { white-space: pre-wrap; font-size: 16px; color: #4a5568; margin-bottom: 20px; }
+    
+    .seo-content { margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px; }
+    .seo-content h2 { font-size: 20px; color: #333; border-left: 5px solid #6f42c1; padding-left: 15px; margin-top: 30px; }
+    
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    nav a { text-decoration: none; color: #6f42c1; margin: 0 10px; font-weight: bold; }
+</style>
 </head>
 <body>
 
 <div class="container">
+    <nav style="text-align: center; margin-bottom: 20px;">
+        <a href="./index.html">トップ</a>
+        <a href="./about.html">アプリについて</a>
+        <a href="./article1.html">脳トレ情報</a>
+    </nav>
+
     <h1>🧠 認知症予防・健康性格診断</h1>
-    <p class="intro">10個の質問に答えて、あなたに最適な運動プランを見つけましょう</p>
     
+    <div class="intro-text">
+        <strong>理学療法士・天久拓哉からのアドバイス：</strong><br>
+        認知症予防において大切なのは、自分の性格に合った「続けられる方法」を見つけることです。10個の質問から、あなたに最適な脳トレ＆運動プランを導き出します。
+    </div>
+
     <form id="quiz">
         <div class="question">
             <p>1. 毎朝のルーティン（決まった習慣）を作るのが得意だ</p>
@@ -99,14 +108,38 @@
             <input type="radio" name="q10" value="A" id="q10b"><label for="q10b" class="opt-label">いいえ（一人でも進められる）</label>
         </div>
 
-        <button type="button" onclick="diagnose()">診断結果を表示する</button>
+        <button type="button" class="submit-btn" onclick="diagnose()">診断結果を表示する</button>
     </form>
 
     <div id="result">
         <strong class="result-title" id="resTitle"></strong>
         <p class="result-text" id="resText"></p>
-        <button type="button" onclick="location.reload()" style="background-color: #a0aec0; margin-top: 20px; padding: 10px;">もう一度診断する</button>
+        <p style="font-size: 14px; background: #f0f7ff; padding: 10px; border-radius: 5px;">
+            <strong>💡 アドバイス：</strong><br>
+            どのタイプの方も、共通して効果的なのは「全身運動をしながら脳を使う」ことです。当サイトの音声脳トレ機能をぜひ併用してみてください。
+        </p>
+        <button type="button" onclick="location.reload()" style="background-color: #a0aec0; color: white; border: none; border-radius: 8px; width: 100%; padding: 10px; cursor: pointer; margin-top: 15px;">もう一度診断する</button>
     </div>
+
+    <div class="seo-content">
+        <h2>なぜ「性格に合わせた予防」が重要なのか？</h2>
+        <p>
+            認知症予防の鍵となる「コグニサイズ（運動×脳トレ）」は、一時的に行うだけでは意味がありません。脳の神経ネットワークを維持・強化するためには、数ヶ月、数年と継続することが不可欠です。
+        </p>
+        <p>
+            理学療法士として多くの患者様を見てきた中で、リハビリや予防習慣が挫折してしまう最大の原因は「自分に合わない方法を無理に続けようとすること」でした。この診断を通じて、あなたが最も「楽しい」「これならできる」と思えるスタイルを見つけてください。
+        </p>
+
+        <h2>早期チェックが未来を分ける</h2>
+        <p>
+            最新の医療統計では、軽度認知障害（MCI）の段階で適切な「多因子介入（運動・知的活動・交流）」を行うことで、約3〜4割の方が健康な状態へ回復できる可能性が示されています。自分の傾向を知り、今日から一歩踏み出すことが、10年後の健やかな生活に繋がります。
+        </p>
+    </div>
+
+    <footer style="margin-top: 50px; text-align: center; font-size: 12px; color: #888; border-top: 1px solid #eee; padding-top: 20px;">
+        <p>© 2026 認知症予防サイト | 開発者：天久拓哉（理学療法士）</p>
+        <p>※本診断は健康意識を高めるためのセルフチェックであり、医学的な診断に代わるものではありません。</p>
+    </footer>
 </div>
 
 <script>
@@ -115,7 +148,6 @@ function diagnose() {
     const form = document.getElementById('quiz');
     const formData = new FormData(form);
     
-    // 未回答チェック
     if (Array.from(formData.values()).length < 10) {
         alert("すべての質問に答えてください！");
         return;
@@ -130,19 +162,19 @@ function diagnose() {
     const results = {
         A: {
             title: "🟢 コツコツ・職人タイプ",
-            text: "あなたは自分のペースを守り、継続することが得意なタイプです！\n\n【おすすめメニュー】\n・毎日の決まった時間のウォーキング\n・週1〜2回のジムでの筋トレ\n\n【効果的な方法】\n基本は一人で進められますが、月に一度だけトレーナーに『正しいフォームの確認』を依頼すると、効率が劇的に上がり、怪我の予防にもなります。"
+            text: "あなたは自分のペースを守り、継続することが得意なタイプです！\n\n【おすすめメニュー】\n・毎日の決まった時間のウォーキング\n・自宅でのルーティン筋トレ\n\n【効果的な方法】\n基本は一人で進められますが、マンネリ化を防ぐために当サイトでは『新しい問題』を時々追加しますので、脳への刺激が継続します。"
         },
         B: {
             title: "🟡 わいわい・社交タイプ",
-            text: "あなたは人との繋がりがモチベーションになるタイプです！\n\n【おすすめメニュー】\n・地域の健康教室やダンスサークル\n・友人との散歩\n\n【効果的な方法】\n一人だと続きにくいので、定期的に励ましてくれるパーソナルトレーナーをつけるのがベスト！『誰かと一緒に頑張る環境』を作ることが、健康への近道です。"
+            text: "あなたは人との繋がりがモチベーションになるタイプです！\n\n【おすすめメニュー】\n・地域の健康教室やサークル活動\n・友人との「しりとりウォーキング」\n\n【効果的な方法】\n誰かと一緒に頑張る環境を作ることが、健康への近道です。サイトの結果を家族や友人と見せ合うのもおすすめです。"
         },
         C: {
             title: "🔵 好奇心・冒険家タイプ",
-            text: "あなたは新しい刺激が脳の活性化に直結するタイプです！\n\n【おすすめメニュー】\n・毎回違うルートを歩く、運動する環境を時々変える\n・季節ごとの新しいスポーツ（水泳やハイキング）\n\n【効果的な方法】\nマンネリ化が一番の敵です。パーソナルトレーナーを活用し、毎回『新しい刺激的なメニュー』を提案してもらうことで、飽きずに楽しく脳を若返らせることができます。"
+            text: "あなたは新しい刺激が脳の活性化に直結するタイプです！\n\n【おすすめメニュー】\n・毎回違うルートを散策する\n・新しいスポーツや趣味への挑戦\n\n【効果的な方法】\n『次はどんな問題が出るか』というワクワク感が脳を若返らせます。多様なジャンルの運動や問題にどんどん挑戦しましょう。"
         },
         D: {
             title: "🔴 効率・データ重視タイプ",
-            text: "あなたは根拠や成果がはっきり見えると燃えるタイプです！\n\n【おすすめメニュー】\n・心拍数や歩数をログに取るウォーキング\n・体組成計での筋肉量チェック\n\n【効果的な方法】\n専門知識を持ったトレーナーから、数値に基づいたフィードバックを受けるのが最適です。今の自分の状態を客観的に分析してもらうことで、納得感を持って予防に取り組めます。"
+            text: "あなたは根拠や成果がはっきり見えると燃えるタイプです！\n\n【おすすめメニュー】\n・歩数計やスマートウォッチでのログ管理\n・数値目標を決めたトレーニング\n\n【効果的な方法】\n体脂肪や運動内容の成果を可視化しましょう。専門的な情報を読み込み、納得感を持って取り組むのがベストです。"
         }
     };
 

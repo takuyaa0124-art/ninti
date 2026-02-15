@@ -12,8 +12,21 @@
 <meta property="og:description" content="運動と計算を同時に行う脳トレサイト。">
 <meta property="og:url" content="https://whimsical-narwhal-e97103.netlify.app/">
 <meta property="og:type" content="website">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4126936469830769"
-     crossorigin="anonymous"></script>
+<script>
+    function loadAds() {
+        if (!window.adsLoaded) {
+            var script = document.createElement('script');
+            script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4126936469830769";
+            script.async = true;
+            script.crossorigin = "anonymous";
+            document.head.appendChild(script);
+            window.adsLoaded = true;
+        }
+    }
+    // スクロールやタッチ操作があった時に広告を読み込む
+    window.addEventListener('scroll', loadAds);
+    window.addEventListener('touchstart', loadAds);
+</script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -36,16 +49,26 @@
     box-sizing: border-box;
   }
 
-  #app {
-    flex: 1; /* 余白を均等にして中央寄せ */
-    width: 100%;
-    max-width: 780px; /* タブレット幅上限 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* ★中央寄せのポイント */
-    align-items: center;
-    text-align: center;
+  /* ★追加：リンク全体の設定 ★ */
+  a {                
+    display: inline-block; /* paddingを上下に効かせるために必要 */
+    padding: 10px 5px;      /* タップエリアを上下に広げる */
+    text-decoration: none; /* 下線を消す設定（お好みで） */
   }
+  /* ------------------------ */
+
+  #app {                
+    flex: 1; /* 余白を均等にして中央寄せ */
+    width: 100%;                
+    max-width: 780px; /* タブレット幅上限 */                
+    display: flex;                
+    flex-direction: column;                
+    justify-content: center; /* ★中央寄せのポイント */                
+    align-items: center;                
+    text-align: center;                
+  }
+  
+ 
 
   #problem {
     font-size: clamp(36px, 9vw, 100px); /* 画面幅に応じて文字サイズが変わる */
@@ -110,7 +133,7 @@
     </nav>
 </header>
 
-<div id="app">
+<div id="app"role="main">
   <div id="problem">問題を読み込んでいます…</div>
   <div id="answer"></div>
 </div>
@@ -126,13 +149,22 @@
 </div>
 
 <section id="explanation" style="max-width: 780px; margin: 40px auto; text-align: left; line-height: 1.8; color: #333; padding: 0 16px;">
-  <h2 style="border-bottom: 2px solid #007bff; padding-bottom: 10px; font-size: 20px;">コグニサイズで脳を活性化：運動と脳トレの相乗効果</h2>
+  <h2 style="border-bottom: 2px solid #0056b3; padding-bottom: 10px; font-size: 20px;">コグニサイズで脳を活性化：運動と脳トレの相乗効果</h2>
   
   <p>
-    当サイトは、国立長寿医療研究センターが開発した<b>「コグニサイズ（Cognicise）」</b>を、自宅で手軽に実践するために設計されました。
-    認知症予防において注目されているアプローチです。
+    当サイトは、国立長寿医療研究センターが開発した<b>「コグニサイズ（Cognicise）」</b>を、手軽に実践できるように作成しました。
+    私は、ウォーキングしている人や、フィットネスジムでウォーキングマシーンや自転車で運動している方をみて、もったいないと思い、せっかく有酸素運動しているのであれば、頭も使って認知症予防も行ってほしいと思って当サイトを作りました。このサイトでは、運動中に効率よく頭を使えるので、すぐに日常生活に取り入れられるようにいます。
   </p>
+<h3>このサイトでできること</h3>
+<p>ただ知識を得るだけでなく、今すぐ実践できる仕組みを用意しました。</p>
+<ul>
+    <li><strong>健康性格診断：</strong>今のあなたに合った運動タイプがわかります。</li>
+    <li><strong>反応速度診断：</strong>楽しみながら脳の活性化度をチェックできます。</li>
+    <li><strong>コグニサイズ情報：</strong>具体的なウォーキングのアレンジ方法を学べます。</li>
+</ul>
 
+<h3>認知症予防は「継続」が鍵</h3>
+<p>理学療法の現場でも、一時的な運動よりも、生活習慣に組み込んだ軽い運動の継続が効果的だとされています。当サイトのツールを毎日の習慣にしてみてください。</p>
   <div style="background: #f0f7ff; padding: 20px; border-radius: 10px; margin: 20px 0;">
     <h3 style="margin-top: 0; color: #0056b3; font-size: 18px;">なぜ「計算」しながら「動く」のが良いのか？</h3>
     <p>
@@ -152,7 +184,7 @@
     <a href="./article2.html" style="color: #007bff; font-weight: bold; text-decoration: none;">→ 【2026年最新版】認知症予防の新常識を詳しく読む</a>
   </p>
 
-  <p style="margin-top: 30px; font-size: 0.75em; color: #888; text-align: center;">
+  <p style="margin-top: 30px; font-size: 0.75em; color: #666; text-align: center;">
     ※本サイトは認知症の診断や治療を行うものではありません。体調に合わせて無理のない範囲で行ってください。
   </p>
 </section>
@@ -162,12 +194,12 @@
     
     <div style="margin-bottom: 20px; background: #f9f9f9; padding: 20px; border-radius: 12px; border-left: 5px solid #28a745;">
         <p style="margin: 0; font-weight: bold; color: #1e7e34;">Q：コグニサイズは1日何分くらいやるのが効果的ですか？</p>
-        <p style="margin: 10px 0 0 0; font-size: 15px;">A：1日30分程度が目安とされていますが、一度に行う必要はありません。当アプリのように1回数分程度の「ながら脳トレ」を、1日数回に分けて合計30分程度にするだけでも、脳の血流量維持に効果が期待できます。</p>
+        <p style="margin: 10px 0 0 0; font-size: 15px;">A：1日30分程度が目安とされていますが、一度に行う必要はありません。当サイトのように1回数分程度の「ながら脳トレ」を、1日数回に分けて合計30分程度にするだけでも、脳の血流量維持に効果が期待できます。</p>
     </div>
 
     <div style="margin-bottom: 20px; background: #f9f9f9; padding: 20px; border-radius: 12px; border-left: 5px solid #28a745;">
         <p style="margin: 0; font-weight: bold; color: #1e7e34;">Q：足腰が弱く、ウォーキングが難しい場合はどうすればいいですか？</p>
-        <p style="margin: 10px 0 0 0; font-size: 15px;">A：椅子に座った状態での「足踏み」や「かかとの上げ下げ」でも十分に効果があります。大切なのは身体を動かしながら頭を使う（二重課題）ことですので、無理のない範囲でアプリの音声問題に答えてみてください。</p>
+        <p style="margin: 10px 0 0 0; font-size: 15px;">A：椅子に座った状態での「足踏み」や「かかとの上げ下げ」でも十分に効果があります。大切なのは身体を動かしながら頭を使う（二重課題）ことですので、無理のない範囲でサイトの問題に答えてみてください。</p>
     </div>
 
     <div style="margin-bottom: 20px; background: #f9f9f9; padding: 20px; border-radius: 12px; border-left: 5px solid #28a745;">
@@ -707,11 +739,11 @@ const problems = [
 { text: "64 - 14 は？", answer: "50" },
 { text: "75 - 25 は？", answer: "50" },
 // ======== 漢字 穴埋め =========
-{ text: "□に入る漢字は？：体□（たい□）", answer: "調（体調）" },
-{ text: "□に入る漢字は？：□力（□りょく）", answer: "努（努力）" },
-{ text: "□に入る漢字は？：安□（あん□）", answer: "心（安心）" },
-{ text: "□に入る漢字は？：□転（□てん）", answer: "運（運転）" },
-{ text: "□に入る漢字は？：□事（□じ）", answer: "食（食事）" },
+{ text: "□に入る漢字は？：体□（たい□）", answer: "調（体調）等" },
+{ text: "□に入る漢字は？：□力（□りょく）", answer: "努（努力）等" },
+{ text: "□に入る漢字は？：安□（あん□）", answer: "心（安心）等" },
+{ text: "□に入る漢字は？：□転（□てん）", answer: "運（運転）等" },
+{ text: "□に入る漢字は？：□事（□じ）", answer: "食（食事）等" },
 // ======== 熟語 追加 =========
 { text: "少しの努力を積み重ねて大きな成果を出すことを表す熟語は？", answer: "塵も積もれば山となる" },
 { text: "一度決めたら最後までやり抜くことを表す熟語は？", answer: "初志貫徹" },
@@ -749,7 +781,7 @@ const problems = [
   { text: "「雨」の下に「路」と書いて何と読みますか？", answer: "露（つゆ）" },
   { text: "「月」に「要」と書いて何と読みますか？", answer: "腰（こし）" },
   { text: "「竹」に「馬」と書いて何と読みますか？", answer: "篤（あつい）" },
-  { text: "「心」が3つ集まってできる漢字は何ですか？", answer: "惢（ずい・しん）※または悊" },
+ 
   { text: "「海老」は何と読みますか？", answer: "えび" },
   { text: "「秋刀魚」は何と読みますか？", answer: "さんま" },
   { text: "「案山子」は何と読みますか？", answer: "かかし" },
@@ -799,7 +831,7 @@ const problems = [
 
   // ======== 漢字（体・自然・対義語） =========
   { text: "「月」に「旨」と書いて何と読みますか？", answer: "脂（あぶら）" },
-  { text: "「目」に「垂」と書いて何と読みますか？", answer: "唾（つば）" },
+  { text: "「口」に「垂」と書いて何と読みますか？", answer: "唾（つば）" },
   { text: "「山」の下に「石」と書いて何と読みますか？", answer: "岩（いわ）" },
   { text: "「明るい」の反対の意味の漢字は何ですか？", answer: "暗い" },
   { text: "「重い」の反対の意味の漢字は何ですか？", answer: "軽い" },
@@ -896,9 +928,6 @@ const problems = [
 
   // ======== 漢字（合体・部首・難読） =========
   { text: "「木」を3つ書くと何という漢字になりますか？", answer: "森" },
-  { text: "「女」に「若」と書いて何と読みますか？", answer: "般若（はんにゃ）※または「め（女）」偏の漢字など" },
-  { text: "「竹」に「毛」と書いて何と読みますか？", answer: "筆（ふで）" },
-  { text: "「手」偏に「取りにいく（取）」と書くと？", answer: "搾（さく）または「搾る」" },
   { text: "「心」の上に「亡」と書いて何と読みますか？", answer: "忘（わすれる）" },
   { text: "「土」に「成」と書いて何と読みますか？", answer: "城（しろ）" },
   { text: "「向日葵」は何と読みますか？", answer: "ひまわり" },
@@ -1096,7 +1125,7 @@ if ('serviceWorker' in navigator) {
         <a href="./privacy.html" style="margin: 0 10px; font-size: 12px; color: #888; text-decoration: none;">プライバシーポリシー</a>
         <a href="./contact.html" style="margin: 0 10px; font-size: 12px; color: #888; text-decoration: none;">運営者情報・お問い合わせ</a>
     </p>
-    <p style="font-size: 12px; color: #aaa; margin-top: 10px;">&copy; 2026 認知症予防サイト（コグニサイズ脳トレ）</p>
+    <p style="font-size: 12px; color: #777; margin-top: 10px;">&copy; 2026 認知症予防サイト（コグニサイズ脳トレ）</p>
 </footer>
 
 </body>

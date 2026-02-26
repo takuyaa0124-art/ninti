@@ -1,0 +1,261 @@
+<section id="eye-training" style="padding:40px 20px; max-width:900px; margin:auto; line-height:1.8;">
+
+<!-- ▼▼▼ ここからインタラクティブ視覚トレーニング追加 ▼▼▼ -->
+
+<div style="text-align:center; margin-bottom:40px; padding:30px; background:#f4f8ff; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+
+<h3>【集中30秒】インタラクティブ視覚トレーニング</h3>
+
+<p>
+2つの円をリラックスして見てください。<br>
+中央に3つ目の円が浮かび上がる感覚を探します。
+</p>
+
+<div id="vt-wrapper">
+  <div id="vt-container">
+    <div class="vt-circle"></div>
+    <div class="vt-circle"></div>
+    <div class="vt-illusion"></div>
+  </div>
+</div>
+
+<button onclick="startVT()" style="padding:10px 20px; font-size:16px; background:#2c7be5; color:white; border:none; border-radius:6px; cursor:pointer;">
+トレーニング開始
+</button>
+
+<div id="vt-status" style="margin-top:15px; font-weight:bold;"></div>
+
+<div style="margin-top:15px;">
+  <div style="height:10px; background:#ddd; border-radius:10px; overflow:hidden;">
+    <div id="focus-bar" style="height:10px; width:0%; background:#2c7be5;"></div>
+  </div>
+  <small>集中ゲージ</small>
+</div>
+
+<p style="font-size:14px; color:#555; margin-top:15px;">
+※無理のない範囲で実施してください。違和感があれば中止してください。
+</p>
+
+</div>
+
+
+
+<style>
+#vt-wrapper{
+  display:flex;
+  justify-content:center;
+  margin:30px 0;
+}
+
+#vt-container{
+  position:relative;
+  display:flex;
+  gap:100px;
+  transition:gap 1s ease-in-out;
+}
+
+.vt-circle{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at center, #222 15%, #666 40%, #bbb 70%, #eee 100%);
+  animation:breathe 4s infinite ease-in-out;
+}
+
+.vt-illusion{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  background: radial-gradient(circle, rgba(0,0,0,0.2) 20%, transparent 70%);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 1.5s ease;
+}
+
+@keyframes breathe{
+  0%{ transform:scale(1); }
+  50%{ transform:scale(1.15); }
+  100%{ transform:scale(1); }
+}
+</style>
+
+
+<script>
+let vtInterval;
+let vtTime = 30;
+let gapDirection = -1;
+
+function updateIllusion(progress){
+  const illusion = document.querySelector(".vt-illusion");
+  illusion.style.opacity = progress > 40 ? 0.4 : 0;
+}
+
+function startVT(){
+
+  clearInterval(vtInterval);
+  vtTime = 30;
+
+  document.getElementById("focus-bar").style.width = "0%";
+  document.getElementById("vt-status").innerText = "集中してください...";
+
+vtInterval = setInterval(function(){
+
+  vtTime -= 0.05;
+
+  let progress = ((30 - vtTime) / 30) * 100;
+  document.getElementById("focus-bar").style.width = progress + "%";
+
+  updateIllusion(progress);
+
+  document.getElementById("vt-status").innerText =
+    "残り " + Math.ceil(vtTime) + " 秒";
+
+  let container = document.getElementById("vt-container");
+  let currentGap = parseFloat(window.getComputedStyle(container).gap);
+
+  if(currentGap <= 40) gapDirection = 1;
+  if(currentGap >= 140) gapDirection = -1;
+
+  container.style.gap = (currentGap + gapDirection * 1) + "px";
+
+  if(vtTime <= 0){
+    clearInterval(vtInterval);
+    document.getElementById("vt-status").innerText =
+      "終了しました。目を閉じてリラックスしてください。";
+  }
+
+},50);
+
+}
+
+</script>
+
+
+
+<!-- ▲▲▲ ここまで追加 ▲▲▲ -->
+
+<h2>理学療法士が解説する「目の調節トレーニング」</h2>
+
+<p>
+最近、「2つの丸い図形を3つに見せる視覚トレーニング」が老眼に良いと話題になっています。
+しかし結論から言うと、<strong>老眼そのものを治す医学的根拠は現在のところ明確ではありません。</strong>
+</p>
+
+<p>
+ただし、目のピント調節機能（毛様体筋）への刺激や、眼精疲労の軽減を目的としたトレーニングとしては一定の価値があります。
+ここでは理学療法士の視点から、安全で現実的な目のケア方法をご紹介します。
+</p>
+
+<hr>
+
+<h3>■ 老眼とは？</h3>
+
+<p>
+老眼は加齢により水晶体が硬くなり、近くにピントを合わせる力（調節力）が低下する状態です。
+これは筋力低下というよりも「組織の変化」に近い現象です。
+</p>
+
+<ul>
+<li>水晶体の弾力性低下</li>
+<li>毛様体筋の機能低下</li>
+<li>近くが見えづらくなる</li>
+</ul>
+
+<p>
+そのため、トレーニングだけで完全に元へ戻すことは難しいとされています。
+</p>
+
+<hr>
+
+<h3>■ 視覚トレーニングの目的</h3>
+
+<p>
+このトレーニングは以下を目的としています。
+</p>
+
+<ul>
+<li>目の筋肉の可動域維持</li>
+<li>ピント調節機能への刺激</li>
+<li>スマホ・PC疲れの軽減</li>
+<li>両眼視機能の活性化</li>
+</ul>
+
+<p>
+特に「仮性老眼（目の疲れによる一時的な見えづらさ）」には有効な可能性があります。
+</p>
+
+<hr>
+
+<h3>■ 実践トレーニング</h3>
+
+<p><strong>やり方：</strong></p>
+
+<ol>
+<li>画面から30～50cm離れて座ります</li>
+<li>目の力を抜き、ぼーっと眺めます</li>
+<li>2つの図が3つに見えるポイントを探します</li>
+<li>中央の図が浮かび上がれば成功です</li>
+</ol>
+
+<p>
+※1日2～3分から始め、やりすぎないことが大切です。
+</p>
+
+<div style="text-align:center; margin:20px 0;">
+<img src="images/eye-training-sample.png" alt="視覚トレーニング画像" style="max-width:300px;">
+<p style="font-size:14px;">※イメージ画像（実際のサイト用に差し替えてください）</p>
+</div>
+
+<hr>
+
+<h3>■ 注意事項</h3>
+
+<ul>
+<li>長時間の実施は逆に疲労を招きます</li>
+<li>頭痛・吐き気が出た場合は中止してください</li>
+<li>持病がある方は医師に相談してください</li>
+</ul>
+
+<hr>
+
+<h3>■ よくある質問（FAQ）</h3>
+
+<h4>Q. 老眼は治りますか？</h4>
+<p>
+医学的に「治る」と断定できる根拠はありません。ただし、目の調節機能を刺激することは可能です。
+</p>
+
+<h4>Q. 毎日やる必要がありますか？</h4>
+<p>
+無理のない範囲で継続することが重要です。短時間を習慣化するのがおすすめです。
+</p>
+
+<h4>Q. 子どもにも有効ですか？</h4>
+<p>
+両眼視トレーニングとしては活用されることもありますが、異常を感じる場合は専門医へ相談してください。
+</p>
+
+<hr>
+
+<p style="font-size:14px; color:#666;">
+本コンテンツは医療行為を目的としたものではありません。
+症状が続く場合は眼科専門医へご相談ください。
+</p>
+
+<h3>■ まとめ</h3>
+
+<p>
+この視覚トレーニングは「老眼を治す魔法」ではありません。
+しかし、目の筋肉を適度に刺激し、眼精疲労を軽減する可能性のあるセルフケアの一つです。
+</p>
+
+<p>
+正しい知識を持ち、安全に取り入れることが大切です。
+</p>
+
+</section>

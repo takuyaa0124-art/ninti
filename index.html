@@ -1039,35 +1039,28 @@ function safeSpeak(text) {
 }
 
 
-// --- ここから差し替え ---
+let answerTimeoutId = null; // 答えを表示するタイマー
+let nextIntervalId = null;  // 次の問題へ進むタイマー
+let remainingProblems = []; // 未出題の問題を管理
 
-let answerTimeoutId = null;
-let nextIntervalId = null;
-let remainingProblems = []; // 未出題の問題を管理する配列
-
-// 問題リストをシャッフルして補充する関数
+// 問題リストをシャッフル
 function refreshProblems() {
-  // 元の問題リスト(problems)をコピー
   remainingProblems = [...problems];
-  // フィッシャー・イェーツのシャッフル
   for (let i = remainingProblems.length - 1; i > 0; i--) {
     const r = Math.floor(Math.random() * (i + 1));
     [remainingProblems[i], remainingProblems[r]] = [remainingProblems[r], remainingProblems[i]];
   }
 }
 
-// 問題の切り替え（重複防止版）
+// 問題の切り替え
 function newProblem() {
   if (answerTimeoutId) clearTimeout(answerTimeoutId);
 
-  // もし未出題の問題がなくなったら、リストをリセット（一周したら再度全問題を混ぜる）
   if (remainingProblems.length === 0) {
     refreshProblems();
   }
 
-  // リストの最後から1つ取り出す（popすることで重複を防ぐ）
   const p = remainingProblems.pop();
-
   document.getElementById("problem").textContent = p.text;
   document.getElementById("answer").textContent = "";
 
@@ -1075,62 +1068,58 @@ function newProblem() {
 
   // 10秒後に答えを表示
   answerTimeoutId = setTimeout(() => {
-    document.getElementById("answer").textContent = "答え：" + p.answer;
-    safeSpeak("答えは " + p.answer + " です");
+    showAnswer(p);
   }, 10000);
 }
 
-// 自動進行（15秒）
+// 答えを表示する共通処理
+function showAnswer(p) {
+  if (!p) return;
+  document.getElementById("answer").textContent = "答え：" + p.answer;
+  safeSpeak("答えは " + p.answer + " です");
+}
+
+// 自動進行の開始
 function startAuto() {
-  if (nextIntervalId) clearInterval(nextIntervalId);
+  stopAllTimers();
   newProblem();
   nextIntervalId = setInterval(newProblem, 15000);
 }
 
-// 自動進行の停止と再開を切り替える
+// すべてのタイマーを停止
+function stopAllTimers() {
+  if (nextIntervalId) clearInterval(nextIntervalId);
+  if (answerTimeoutId) clearTimeout(answerTimeoutId);
+  nextIntervalId = null;
+  answerTimeoutId = null;
+}
+
+// ボタンによる一時停止・再開の切り替え
 function toggleAuto() {
   const stopBtn = document.getElementById("stopBtn");
-  const currentAnswer = document.getElementById("answer").textContent;
+  const problemText = document.getElementById("problem").textContent;
 
   if (nextIntervalId) {
-    // 【停止処理】
-    clearInterval(nextIntervalId);
-    nextIntervalId = null;
-    if (answerTimeoutId) {
-      clearTimeout(answerTimeoutId);
-      answerTimeoutId = null;
+    stopAllTimers();
+    if (document.getElementById("answer").textContent === "") {
+      const currentP = problems.find(p => p.text === problemText);
+      showAnswer(currentP);
     }
     stopBtn.textContent = "脳トレを再開する";
     stopBtn.style.backgroundColor = "#3182ce";
     stopBtn.style.color = "#ffffff";
   } else {
-    // 【再開処理】
     stopBtn.textContent = "一時停止";
     stopBtn.style.backgroundColor = "#ffffff";
     stopBtn.style.color = "#3182ce";
-
-    if (currentAnswer === "") {
-      const problemText = document.getElementById("problem").textContent;
-      // 元の全リストから現在表示中の問題を探す
-      const currentP = problems.find(p => p.text === problemText);
-      if (currentP) {
-        document.getElementById("answer").textContent = "答え：" + currentP.answer;
-        safeSpeak("答えは " + currentP.answer + " です");
-      }
-    }
-    nextIntervalId = setInterval(newProblem, 10000);
+    startAuto();
   }
 }
 
-// 起動時の処理
 window.onload = () => {
-  refreshProblems(); // 最初に問題をシャッフルしてセット
+  refreshProblems();
   startAuto();
 };
-
-// --- ここまで差し替え ---
-
-</script>
 
 <script>
 if ('serviceWorker' in navigator) {

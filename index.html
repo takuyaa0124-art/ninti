@@ -29,7 +29,7 @@
     window.addEventListener('scroll', loadAds);
     window.addEventListener('touchstart', loadAds);
 </script>
-</head>
+
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -113,7 +113,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="コグニサイズ">
 <link rel="apple-touch-icon" href="/icons/icon-192.png">
-
 </head>
 
 <body>
@@ -1026,7 +1025,7 @@ const problems = [
 { text: "1年は何か月ありますか？", answer: "12か月" },
 { text: "日本の首都はどこですか？", answer: "東京" },
   
-  { text: "「め」や「はな」はあるのに、「くち」や「みみ」がない物って？", answer: "植物" }
+  { text: "「め」や「はな」はあるのに、「くち」や「みみ」がない物って？", answer: "植物" },
 ];
 
 function safeSpeak(text) {
@@ -1123,7 +1122,6 @@ window.onload = () => {
   startAuto();
 };
 
-<script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/service-worker.js')
     .then(() => console.log('SW registered'))

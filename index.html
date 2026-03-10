@@ -1026,7 +1026,7 @@ const problems = [
 { text: "日本の首都はどこですか？", answer: "東京" },
   
   { text: "「め」や「はな」はあるのに、「くち」や「みみ」がない物って？", answer: "植物" },
-];
+];//
 
 function safeSpeak(text) {
   if ('speechSynthesis' in window) {
@@ -1040,9 +1040,15 @@ function safeSpeak(text) {
 }
 
 
-let answerTimeoutId = null; // 答えを表示するタイマー
-let nextIntervalId = null;  // 次の問題へ進むタイマー
-let remainingProblems = []; // 未出題の問題を管理
+// --- 追加・修正する変数管理 ---
+let currentProblem = null;
+let remainingProblems = [];
+let isPaused = false;
+
+let startTime = 0;          // タイマー開始時刻
+let remainingTime = 10000;  // 答えが出るまでの残り時間（初期値10秒）
+let timerId = null;         // 管理用タイマーID
+let phase = "question";     // 現在の状態 ("question" または "answer")
 
 // 問題リストをシャッフル
 function refreshProblems() {
@@ -1053,73 +1059,75 @@ function refreshProblems() {
   }
 }
 
-// 問題の切り替え
+// 新しい問題を出す
 function newProblem() {
-  if (answerTimeoutId) clearTimeout(answerTimeoutId);
-
-  if (remainingProblems.length === 0) {
-    refreshProblems();
-  }
-
-  const p = remainingProblems.pop();
-  document.getElementById("problem").textContent = p.text;
+  if (remainingProblems.length === 0) refreshProblems();
+  
+  currentProblem = remainingProblems.pop();
+  document.getElementById("problem").textContent = currentProblem.text;
   document.getElementById("answer").textContent = "";
+  safeSpeak(currentProblem.text);
 
-  safeSpeak(p.text);
-
-  // 10秒後に答えを表示
-  answerTimeoutId = setTimeout(() => {
-    showAnswer(p);
-  }, 10000);
+  phase = "question";
+  remainingTime = 10000; // 答えまで10秒
+  startTimer();
 }
 
-// 答えを表示する共通処理
-function showAnswer(p) {
-  if (!p) return;
-  document.getElementById("answer").textContent = "答え：" + p.answer;
-  safeSpeak("答えは " + p.answer + " です");
+// タイマーを開始する（残り時間分だけ待つ）
+function startTimer() {
+  startTime = Date.now();
+  timerId = setTimeout(() => {
+    if (phase === "question") {
+      showAnswer();
+    } else {
+      newProblem();
+    }
+  }, remainingTime);
 }
 
-// 自動進行の開始
-function startAuto() {
-  stopAllTimers();
-  newProblem();
-  nextIntervalId = setInterval(newProblem, 15000);
-}
+// 答えを表示する
+function showAnswer() {
+  if (!currentProblem) return;
+  document.getElementById("answer").textContent = "答え：" + currentProblem.answer;
+  safeSpeak("答えは " + currentProblem.answer + " です");
 
-// すべてのタイマーを停止
-function stopAllTimers() {
-  if (nextIntervalId) clearInterval(nextIntervalId);
-  if (answerTimeoutId) clearTimeout(answerTimeoutId);
-  nextIntervalId = null;
-  answerTimeoutId = null;
+  phase = "answer";
+  remainingTime = 5000; // 次の問題まで5秒
+  startTimer();
 }
 
 // ボタンによる一時停止・再開の切り替え
 function toggleAuto() {
   const stopBtn = document.getElementById("stopBtn");
-  const problemText = document.getElementById("problem").textContent;
 
-  if (nextIntervalId) {
-    stopAllTimers();
-    if (document.getElementById("answer").textContent === "") {
-      const currentP = problems.find(p => p.text === problemText);
-      showAnswer(currentP);
-    }
+  if (!isPaused) {
+    // 【一時停止処理】
+    isPaused = true;
+    clearTimeout(timerId); // タイマーを止める
+    
+    // 止めた瞬間の「残り時間」を計算して保存する
+    let elapsed = Date.now() - startTime;
+    remainingTime -= elapsed; 
+
     stopBtn.textContent = "脳トレを再開する";
     stopBtn.style.backgroundColor = "#3182ce";
     stopBtn.style.color = "#ffffff";
   } else {
+    // 【再開処理】
+    isPaused = false;
     stopBtn.textContent = "一時停止";
     stopBtn.style.backgroundColor = "#ffffff";
     stopBtn.style.color = "#3182ce";
-    startAuto();
+
+    // 保存していた「残り時間」からタイマーを再開する
+    startTimer(); 
   }
 }
 
+// 最初の起動
 window.onload = () => {
   refreshProblems();
-  startAuto();
+  newProblem();
 };
 
 if ('serviceWorker' in navigator) {

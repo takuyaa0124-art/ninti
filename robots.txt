@@ -1,2 +1,8 @@
 User-agent: *
-Sitemap: https://whimsical-narwhal-e97103.netlify.app/sitemap.xml
+Allow: /
+
+# 管理ページや不要ページがあればここで制御（今は未使用）
+# Disallow: /admin/
+# Disallow: /private/
+
+Sitemap: https://reha-activelab.com/sitemap.xml

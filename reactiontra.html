@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>反応診断｜</title>
+  <title>反応速度テスト｜理学療法士監修の脳トレ・反応診断</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
@@ -117,10 +117,17 @@
 </head>
 <body>
   <h1>反応・レスポンストレーニング</h1>
-
+<div style="background:#e8f5e9;padding:15px;border-radius:10px;margin-bottom:15px;font-size:0.9rem;">
+<strong>理学療法士監修トレーニング</strong><br>
+この反応速度テストは、脳の処理速度や注意力の維持・向上を目的としたトレーニングです。リハビリテーションにおいて、瞬発的な反応速度は『とっさの一歩』が出るかどうかの分かれ道です。この診断では、脳から指先への指令伝達スピードを測定します。楽しみながら、脳の『若々しさ』を維持しましょう！<br>
+※医療行為ではなく、健康維持のための目安としてご活用ください。
+</div>
   <div class="card">
     <p id="instruction">「スタート」を押して待機。<br>色が<strong>赤</strong>に変わったらすぐタップ！</p>
-
+<p style="font-size:0.9rem; color:#555;">
+反応速度は、加齢や運動習慣の影響を受ける重要な能力のひとつです。<br>
+定期的に測定することで、注意力や判断力の変化に気づくことができます。
+</p>
     <div id="circle" class="circle">待機中</div>
 
     <button id="startBtn">スタート！</button>
@@ -135,7 +142,7 @@
     <div class="history" id="bestScore">自己ベスト: -- ms</div>
   </div>
 
-  <a href="./index.html" class="back-link">← 脳トレメニューへ戻る</a>
+  <a href="./index.html" class="back-link">← 脳トレ・認知症予防メニューへ戻る</a>
 
   <script>
     const circle = document.getElementById('circle');
@@ -197,7 +204,21 @@
       rankTag.className = 'rank-tag ' + rank.class;
       comment.textContent = rank.text;
       resultArea.style.display = 'block';
-
+<div style="margin-top:20px; font-size:0.85rem; color:#555; text-align:left;">
+<h3>反応速度の目安</h3>
+<ul>
+<li>200ms未満：非常に速い（アスリートレベル）</li>
+<li>200〜300ms：速い</li>
+<li>300〜450ms：平均的</li>
+<li>450ms以上：ややゆっくり</li>
+</ul>
+<p>
+反応速度はトレーニングにより改善が期待できます。日々の運動や脳トレを継続することが重要です。
+</p>
+<p style="font-size:0.8rem; color:#777; margin-top:20px;">
+※本コンテンツは一般的な健康情報の提供を目的としており、診断や治療を目的としたものではありません。体調に不安がある場合は医療機関へご相談ください。
+</p>
+</div>
       // 自己ベスト更新
       if (reactionTime < bestScore) {
         bestScore = reactionTime;

@@ -1,11 +1,11 @@
 {
-  "name": "コグニサイズ脳トレ",
-  "short_name": "コグニサイズ",
+"name": "コグニサイズ脳トレ｜認知症予防アプリ",
+"short_name": "脳トレ",
   "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
-  "description": "認知症予防向けの脳トレ問題を自動で出題するアプリです。",
+  "description": "理学療法士の知見をもとに、認知症予防や脳機能の維持・向上を目的とした脳トレ問題を自動で出題するサイトです。高齢者やリハビリ中の方でも安全に取り組める内容になっています。"
   "icons": [
     { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }

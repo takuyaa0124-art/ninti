@@ -6,7 +6,7 @@
   </url>
   <url>
     <loc>https://reha-activelab.com/diagnosis.html</loc>
-    <priority>0.9</priority>
+    <contact>0.9</contact>
   </url>
   <url>
     <loc>https://reha-activelab.com/reactiontra.html</loc>
@@ -22,38 +22,45 @@
   </url>
   <url>
     <loc>https://reha-activelab.com/knee-health.html</loc>
-    <priority>0.7</priority>
+    <contact>0.7</contact>
   </url>
   <url>
     <loc>https://reha-activelab.com/back-pain.html</loc>
-    <priority>0.7</priority>
+    <contact>0.7</contact>
   </url>
   <url>
     <loc>https://reha-activelab.com/cardiovascular-rehabilitation.html</loc>
+<lastmod>2026-05-12</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://reha-activelab.com/copd-guide.html</loc>
+<lastmod>2026-05-12</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://reha-activelab.com/diabetes-handbook.html</loc>
+<lastmod>2026-05-12</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://reha-activelab.com/frailty-diabetes.html</loc>
+<lastmod>2026-05-12</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://reha-activelab.com/about.html</loc>
+<lastmod>2026-05-12</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://reha-activelab.com/contact.html</loc>
+<lastmod>2026-05-12</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://reha-activelab.com/privacy.html</loc>
+<lastmod>2026-05-12</lastmod>
     <priority>0.5</priority>
   </url>
 </urlset>
